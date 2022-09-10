@@ -1,0 +1,95 @@
+.login {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+
+  .login_wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    flex: 1;
+    background-color: #8fe3cf;
+
+    .info_container {
+      display: flex;
+      color: white;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      padding-top: 10px;
+      height: 70%;
+      width: 80%;
+      h1 {
+        font-size: 50px;
+        color: #256d85;
+      }
+      .login_input_container {
+        margin: 5px;
+        color: #256d85;
+        .input {
+          outline: none;
+          border: none;
+          width: 250px;
+          padding: 10px 10px;
+          border-radius: 20px;
+        }
+        .input:focus {
+          outline: 2px solid #256d85;
+        }
+        p {
+          padding: 5px;
+        }
+      }
+      .login_button {
+        display: flex;
+        margin: 10px 20px;
+        padding: 0px 0px;
+        justify-content: center;
+        border: 1px solid #256d85;
+        width: 100px;
+        border-radius: 5px;
+        background-color: #256d85;
+        p {
+          color: white;
+        }
+      }
+      .login_button:hover {
+      }
+    }
+  }
+  .image_container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex: 3;
+    position: relative;
+    .text_parent_container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 16%,
+        rgba(8, 8, 8, 0.4) 24%
+      );
+      .text_container {
+        padding: 3%;
+        position: absolute;
+        bottom: 5%;
+        p {
+          color: white;
+          font-size: 55px;
+          font-weight: 700;
+        }
+      }
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

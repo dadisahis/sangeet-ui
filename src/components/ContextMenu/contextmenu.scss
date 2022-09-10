@@ -1,0 +1,51 @@
+.more_options {
+  position: relative;
+  .options_container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    padding: 5px;
+    left: 25px;
+    bottom: 15px;
+    color: white;
+    background-color: rgb(44, 62, 143);
+    .option {
+      padding: 5px;
+      font-size: 12px;
+      .playlist_options_container {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100px;
+        height: auto;
+        border-radius: 5px;
+        padding: 5px;
+        left: 105px;
+        bottom: 55px;
+        color: white;
+        background-color: rgb(44, 62, 143);
+        .playlist_option {
+          padding: 5px;
+          font-size: 12px;
+        }
+        .playlist_option:hover {
+          color: aquamarine;
+        }
+      }
+    }
+    .option:hover {
+      color: aquamarine;
+    }
+  }
+  .toast_notification {
+    height: 50px;
+    background-color: rgb(44, 62, 143);
+    color: white;
+    width: 300px;
+  }
+}

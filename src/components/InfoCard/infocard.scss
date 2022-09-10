@@ -1,0 +1,88 @@
+.infocard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3px 0px;
+  padding: 2px;
+  border-radius: 5px;
+  //
+  .infocard_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 0px;
+    height: 100%;
+    width: 200px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+
+    .play_icon_container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 35%;
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
+      background-color: black;
+      opacity: 80%;
+      .play_icon {
+        font-size: 50px;
+        color: white;
+        opacity: 90%;
+      }
+    }
+    .img_container {
+      padding: 5px;
+      .img_wrapper {
+        display: flex;
+        position: relative;
+        img {
+          height: 195px;
+          width: 195px;
+          border-radius: 5px;
+        }
+        .info_container {
+          display: flex;
+          justify-content: flex-start;
+          position: absolute;
+          bottom: 0%;
+          padding: 10px;
+          width: 90%;
+          height: 50%;
+          border-radius: 5px;
+          background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 16%,
+            rgba(8, 8, 8, 0.4) 44%
+          );
+          h3 {
+            font-size: 15px;
+            font-weight: 600;
+            position: absolute;
+            bottom: 10%;
+          }
+        }
+      }
+    }
+  }
+  .infocard_container:hover {
+    opacity: 70%;
+  }
+  &:hover {
+    // animation: o-rotate-360 linear 8s infinite;
+    // background: linear-gradient(115deg, rgb(67, 84, 141) 8%, gray 90%);
+  }
+  @keyframes o-rotate-360 {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

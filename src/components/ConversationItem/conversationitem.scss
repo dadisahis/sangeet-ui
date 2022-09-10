@@ -1,0 +1,35 @@
+.conversation_item {
+  display: flex;
+  align-items: center;
+  width: 320px;
+  height: 75px;
+  padding: 0px 10px;
+  justify-content: space-between;
+  cursor: pointer;
+  .lastMessage_time {
+    color: #d6d5a8;
+    font-size: 14px;
+  }
+  .conversation_item_info {
+    display: flex;
+
+    img {
+      height: 50px;
+      width: 50px;
+      object-fit: cover;
+      border-radius: 20%;
+      margin-right: 20px;
+    }
+    .username {
+      color: #a5c9ca;
+    }
+    .lastMessage {
+      color: #51557e;
+      font-size: 12px;
+    }
+  }
+}
+.conversation_item:hover {
+  background-color: #465b7718;
+  border-radius: 10px;
+}

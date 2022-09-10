@@ -1,0 +1,225 @@
+.soundbar {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  width: 100%;
+  height: 80px;
+  transition: height ease-in 0.15s;
+  &.open {
+    height: 89vh;
+  }
+
+  .progressBar {
+    height: 3px;
+    -webkit-appearance: none;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background: #3b7677;
+    transition: background 0.2s ease;
+    cursor: pointer;
+  }
+  .progressBar::-webkit-slider-thumb {
+    position: relative;
+    -webkit-appearance: none;
+    box-sizing: content-box;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    background-color: black;
+    cursor: pointer;
+  }
+  .soundbar_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3px 100px;
+    width: 90%;
+    max-width: 1600px;
+    &.open {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .soundbar_left {
+      .button_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon_container {
+          .skip_icon {
+            font-size: 25px;
+            margin: 0px 10px;
+            cursor: pointer;
+          }
+          .skip_icon:hover {
+            color: white;
+          }
+          .play_icon {
+            font-size: 40px;
+            cursor: pointer;
+          }
+          .play_icon:hover {
+            color: white;
+          }
+        }
+      }
+    }
+    .soundbar_middle {
+      display: flex;
+      align-items: center;
+      color: gray;
+      .middle_left {
+        margin-right: 10px;
+        img {
+          height: 50px;
+          width: 50x;
+          border-radius: 5px;
+        }
+      }
+      .middle_right {
+        margin-left: 5px;
+        h4 {
+          font-weight: 550;
+        }
+        p {
+          font-size: 12px;
+        }
+      }
+      .favourite_icon {
+        color: black;
+        margin-left: 25px;
+      }
+    }
+    .soundbar_right {
+      display: flex;
+      cursor: pointer;
+      position: relative;
+      .right_icon {
+        margin: 0px 8px;
+        &.active {
+          color: aquamarine;
+        }
+      }
+      .right_icon:hover {
+        color: white;
+      }
+    }
+    .soundbar_open_container {
+      display: flex;
+      width: 90%;
+      justify-content: space-evenly;
+      .soundbar_open_wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .soundbar_top {
+          display: flex;
+          flex-direction: column;
+          color: gray;
+
+          .top_left {
+            img {
+              height: 300px;
+              width: 300x;
+              border-radius: 5px;
+              margin-bottom: 15px;
+              box-shadow: 18px 15px 5px -2px rgba(0, 0, 0, 0.29);
+              -webkit-box-shadow: 18px 15px 5px -2px rgba(0, 0, 0, 0.29);
+              -moz-box-shadow: 18px 15px 5px -2px rgba(0, 0, 0, 0.29);
+            }
+          }
+          .top_info_container {
+            display: flex;
+            justify-content: space-between;
+            .top_right {
+              h4 {
+                font-weight: 550;
+              }
+              p {
+                font-size: 12px;
+              }
+            }
+            .favourite_icon {
+              color: black;
+            }
+          }
+        }
+        .soundbar_controls {
+          .button_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .icon_container {
+              .skip_icon {
+                font-size: 25px;
+                margin: 0px 10px;
+                padding: 5px;
+                cursor: pointer;
+                &.active {
+                  color: rgb(19, 201, 140);
+                  border-radius: 50%;
+                  // box-shadow: 0 0 10px 5px gray;
+                  // // /* inner white */ 0 0 100px 60px #f0f,
+                  // /* middle magenta */ 0 0 140px 90px #0ff; /* outer cyan */
+                }
+              }
+              .skip_icon:hover {
+                color: white;
+              }
+              .play_icon {
+                font-size: 40px;
+                cursor: pointer;
+              }
+              .play_icon:hover {
+                color: white;
+              }
+            }
+          }
+        }
+        .soundbar_top_right {
+          display: flex;
+          cursor: pointer;
+          position: relative;
+
+          .right_icon {
+            margin: 0px 8px;
+          }
+          .right_icon:hover {
+            color: white;
+          }
+        }
+      }
+    }
+    .queue_component {
+      display: flex;
+      flex-direction: column;
+      .queue_track_info_container {
+        display: flex;
+        align-items: center;
+        width: 310px;
+        justify-content: space-between;
+        padding: 10px 10px;
+        border-radius: 10px;
+        border-bottom: 2px solid lightgrey;
+        color: gray;
+        img {
+          height: 40px;
+          border-radius: 5px;
+          box-shadow: 3px 3px 10px gray;
+        }
+        &.active {
+          color: red;
+        }
+      }
+      .queue_track_info_container:hover {
+        background-color: #c3cfe2;
+      }
+    }
+  }
+}

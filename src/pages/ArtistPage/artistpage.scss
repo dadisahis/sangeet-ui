@@ -1,0 +1,131 @@
+.artistPage {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  overflow-y: overlay;
+  align-items: center;
+  background: linear-gradient(
+    178.1deg,
+    rgb(60, 55, 106) 8.5%,
+    rgb(23, 20, 69) 82.4%
+  );
+  .artistPage_wrapper {
+    width: 100%;
+    max-width: 1424px;
+    .artist_container {
+      display: flex;
+      width: 100%;
+      max-width: 1024px;
+      .artist_wrapper {
+        .artist_info_container {
+          display: flex;
+          width: 1024px;
+          .cover_pic_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            .blur {
+              height: 350px;
+              width: 100%;
+              position: relative;
+              background-color: #827397;
+              border-radius: 5px;
+            }
+            .artistCoverPic {
+              height: 350px;
+              width: 80%;
+              position: absolute;
+            }
+          }
+          position: relative;
+          .info_wrapper {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            bottom: 0%;
+            background: linear-gradient(
+              to bottom,
+              rgba(0, 0, 0, 0) 16%,
+              rgba(8, 8, 8, 0.4) 44%
+            );
+            border-radius: 5px;
+
+            .img_container {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 165px;
+              width: 165px;
+              border-radius: 50%;
+              padding: 2% 1%;
+              position: relative;
+              .artistProfilePic {
+                height: 160px;
+                width: 160px;
+                border-radius: 50%;
+                position: absolute;
+              }
+            }
+            .info_container {
+              p {
+                color: white;
+                padding: 0px 5px;
+                text-transform: capitalize;
+              }
+              .name {
+                font-size: 35px;
+                font-weight: 800;
+              }
+              .genres_container {
+                display: flex;
+                .genres_title {
+                  font-weight: 700;
+                  color: aqua;
+                }
+              }
+            }
+            .follow_button_container {
+              margin-left: 20px;
+              .follow_button {
+                .button {
+                  height: 20px;
+                  width: 80px;
+                  padding: 5px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  background: none;
+                  color: white;
+                  border: 1px solid white;
+                  cursor: pointer;
+                  p {
+                    font-size: 13px;
+                  }
+                  &.following {
+                    color: greenyellow;
+                    border: 1px solid greenyellow;
+                  }
+                }
+                button:hover {
+                  color: aquamarine;
+                  border: 1px solid aquamarine;
+                  background-color: rgba(127, 255, 212, 0.199);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .artist_bottom {
+    height: 80px;
+    width: 100%;
+  }
+}
+.artistPage::-webkit-scrollbar {
+  display: none;
+}

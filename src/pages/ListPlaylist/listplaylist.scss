@@ -1,0 +1,30 @@
+.listPlaylist {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  overflow-y: overlay;
+  background: linear-gradient(
+    178.1deg,
+    rgb(60, 55, 106) 8.5%,
+    rgb(23, 20, 69) 82.4%
+  );
+  .listPlaylist_wrapper {
+    width: 100%;
+    max-width: 1424px;
+    .listPlaylist_container {
+      display: flex;
+      width: 100%;
+      .listPlaylist_container_right {
+        display: flex;
+        flex-direction: column;
+        color: aquamarine;
+        width: 80%;
+        .list_container {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+      }
+    }
+  }
+}
