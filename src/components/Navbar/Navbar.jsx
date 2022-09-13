@@ -2,7 +2,6 @@ import React from "react";
 import "./navbar.scss";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import TagIcon from "@mui/icons-material/Tag";
-import Login from "../../pages/Login/Login";
 import SearchBox from "../SearchBox/SearchBox";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -51,7 +50,17 @@ function Navbar() {
                   className="login_button"
                   onClick={() => navigate("/login")}
                 >
-                  Login
+                  <p>Login</p>
+                </Button>
+              )}
+            </div>
+            <div className="right_item button">
+              {user ? null : (
+                <Button
+                  className="login_button"
+                  onClick={() => navigate("/register")}
+                >
+                  <p>Register</p>
                 </Button>
               )}
             </div>

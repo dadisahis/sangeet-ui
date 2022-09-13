@@ -92,7 +92,7 @@ function Sidebar() {
             <div className="sidebar_item">
               <SearchIcon />
             </div>
-            <Link to="/list-playlist">
+            <Link to={user ? "/list-playlist" : "/login"}>
               <div className="sidebar_item">
                 <LibraryMusicIcon />
               </div>
@@ -100,14 +100,12 @@ function Sidebar() {
 
             <div
               className="sidebar_item type"
-              onClick={() => {
-                setOpenModal(!openModal);
-              }}
+              onClick={() => (user ? setOpenModal(!openModal) : null)}
             >
               <AddBoxIcon />
             </div>
 
-            <Link to="/liked-songs">
+            <Link to={user ? "/liked-songs" : "/login"}>
               <div className="sidebar_item">
                 <FavoriteBorderIcon />
               </div>

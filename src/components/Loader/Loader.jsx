@@ -8,7 +8,7 @@ function Loader() {
         height="80"
         width="80"
         radius="9"
-        color="green"
+        color="#C3F8FF"
         ariaLabel="three-dots-loading"
       />
     </div>

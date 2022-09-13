@@ -5,11 +5,7 @@ function SearchResultItem({ data, isNotArtist }) {
   const [hover, setHover] = useState(false);
   return (
     <div className="searchresultitem">
-      <div
-        className="searchresultitem_container"
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
+      <div className="searchresultitem_container">
         <div className="img_container">
           {data && data.images && data.images.length > 0 && !isNotArtist ? (
             <div className="img_wrapper">

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getPlaylists } from "../../api/api";
 import InfoCard from "../../components/InfoCard/InfoCard";
+import Loader from "../../components/Loader/Loader";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { AuthContext } from "../../context/authContext";
@@ -33,17 +34,22 @@ function ListPlaylist() {
         </div>
         <div className="listPlaylist_container">
           <Sidebar />
-          <div className="listPlaylist_container_right">
-            <h1>Playlists</h1>
-            <div className="list_container">
-              {playlistList.length > 0 &&
-                playlistList.map((item) => (
+          {playlistList.length > 0 ? (
+            <div className="listPlaylist_container_right">
+              <h1>Playlists</h1>
+              <div className="list_container">
+                {playlistList.map((item) => (
                   <Link to={`/playlist/${item._id}`}>
                     <InfoCard data={item} />
                   </Link>
                 ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="loader_container">
+              <Loader />
+            </div>
+          )}
         </div>
       </div>
     </div>

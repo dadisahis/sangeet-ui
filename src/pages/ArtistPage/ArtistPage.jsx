@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../context/authContext";
 import TrackInfo from "../../components/TrackInfo/TrackInfo";
+import Loader from "../../components/Loader/Loader";
 
 function ArtistPage() {
   const id = window.location.pathname.split("/")[2];
@@ -27,6 +28,7 @@ function ArtistPage() {
   const getArtistTrack = (id) => {
     const data = getArtistTracks(id);
     data.then((tracks) => {
+      console.log(tracks);
       setArtistTracks(tracks);
     });
   };
@@ -44,6 +46,7 @@ function ArtistPage() {
           position: toast.POSITION.BOTTOM_CENTER,
           className: "toast_notification",
         });
+        getArtistTrack(id);
       });
     } else {
       const updated_liked_by = item.liked_by.filter((i) => {
@@ -61,9 +64,9 @@ function ArtistPage() {
           position: toast.POSITION.BOTTOM_CENTER,
           className: "toast_notification",
         });
+        getArtistTrack(id);
       });
     }
-    getArtistTrack(id);
   };
 
   const followArtist = () => {
@@ -126,10 +129,11 @@ function ArtistPage() {
         <div className="artistPage_top">
           <Navbar />
         </div>
+
         <div className="artist_container">
           <Sidebar />
-          <div className="artist_wrapper">
-            {artistData ? (
+          {artistData && artistTracks ? (
+            <div className="artist_wrapper">
               <div className="artist_info_container">
                 <div className="cover_pic_container">
                   <div className="blur"></div>
@@ -158,38 +162,46 @@ function ArtistPage() {
                         : null}
                     </div>
                   </div>
-                  <div className="follow_button_container">
-                    {user.following_artists.length > 0 &&
-                    user.following_artists
-                      .map((item) => item.user_id === artistData._id)
-                      .includes(true) ? (
-                      <div className="follow_button ">
-                        <div
-                          className="button following"
-                          onClick={() => unFollowArtist()}
-                        >
-                          <p>Following</p>
+                  {user ? (
+                    <div className="follow_button_container">
+                      {user.following_artists.length > 0 &&
+                      user.following_artists
+                        .map((item) => item.user_id === artistData._id)
+                        .includes(true) ? (
+                        <div className="follow_button ">
+                          <div
+                            className="button following"
+                            onClick={() => unFollowArtist()}
+                          >
+                            <p>Following</p>
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="follow_button">
-                        <div className="button" onClick={() => followArtist()}>
-                          <p>Follow</p>
+                      ) : (
+                        <div className="follow_button">
+                          <div
+                            className="button"
+                            onClick={() => followArtist()}
+                          >
+                            <p>Follow</p>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
+                      )}
+                    </div>
+                  ) : null}
                 </div>
               </div>
-            ) : null}
-            {artistTracks ? (
+
               <TrackInfo
                 trackList={artistTracks}
                 showTitles={true}
                 handleLikedSongs={handleLikedSongs}
               />
-            ) : null}
-          </div>
+            </div>
+          ) : (
+            <div className="loader_container">
+              <Loader />
+            </div>
+          )}
         </div>
       </div>
       <div className="artist_bottom">

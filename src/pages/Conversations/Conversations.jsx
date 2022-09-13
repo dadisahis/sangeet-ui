@@ -19,6 +19,7 @@ function Conversations() {
       setConversations(conversationList);
     });
   };
+  console.log(conversations);
 
   useEffect(() => {
     getUsersConversations();

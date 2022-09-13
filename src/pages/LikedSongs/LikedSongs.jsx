@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getTracks } from "../../api/api";
 import { AuthContext } from "../../context/authContext";
 import Playlist from "../../components/Playlist/Playlist";
+import Loader from "../../components/Loader/Loader";
 function LikedSongs() {
   const { state: tracks } = useContext(trackContext);
   const { user } = useContext(AuthContext);

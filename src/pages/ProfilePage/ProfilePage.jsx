@@ -18,7 +18,9 @@ import {
   getFollowers,
   updateUser,
   createConversation,
+  getConversations,
 } from "../../api/api";
+import Loader from "../../components/Loader/Loader";
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -120,9 +122,23 @@ function ProfilePage() {
     const payload1 = {
       members: [user._id, id],
     };
-    const data1 = createConversation(payload1);
-    data1.then(() => {
-      navigate(`/conversations`);
+    const data = getConversations(user._id);
+    data.then((conversationList) => {
+      var exist = false;
+      conversationList.forEach((i) => {
+        if (i.members.includes(id) && i.members.includes(user._id)) {
+          exist = true;
+        }
+      });
+      console.log(exist);
+      if (exist) {
+        navigate("/conversations");
+      } else {
+        const data1 = createConversation(payload1);
+        data1.then(() => {
+          navigate(`/conversations`);
+        });
+      }
     });
   };
 
@@ -144,8 +160,8 @@ function ProfilePage() {
         </div>
         <div className="profile_container">
           <Sidebar />
-          <div className="profile_wrapper">
-            {profileData ? (
+          {profileData && recentlyPlayed ? (
+            <div className="profile_wrapper">
               <div className="profile_info_container">
                 <div className="cover_pic_container">
                   <div className="blur"></div>
@@ -211,52 +227,58 @@ function ProfilePage() {
                   )}
                 </div>
               </div>
-            ) : null}
-            {recentlyPlayed && recentlyPlayed.length > 0 && id === user._id ? (
-              <TrackInfo
-                trackList={recentlyPlayed}
-                showTitles={true}
-                handleLikedSongs={() => {}}
-                title="Recently Played"
-              />
-            ) : null}
-            {playlistList.length > 0 && (
-              <>
-                <h3 className="playlist_title">Playlists</h3>
-                <div className="list_container">
-                  {playlistList.map((item) => (
-                    <Link to={`/playlist/${item._id}`}>
-                      <InfoCard data={item} />
-                    </Link>
-                  ))}
-                </div>
-              </>
-            )}
-            {followingArtist.length > 0 && (
-              <>
-                <h3 className="playlist_title">Following Artists</h3>
-                <div className="list_container">
-                  {followingArtist.map((item) => (
-                    <Link to={`/artist/${item._id}`}>
-                      <InfoCard data={item} />
-                    </Link>
-                  ))}
-                </div>
-              </>
-            )}
-            {following.length > 0 && (
-              <>
-                <h3 className="playlist_title">Following Profiles</h3>
-                <div className="list_container">
-                  {following.map((item) => (
-                    <Link to={`/user/${item._id}`}>
-                      <InfoCard data={item} />
-                    </Link>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
+              {recentlyPlayed &&
+              recentlyPlayed.length > 0 &&
+              id === user._id ? (
+                <TrackInfo
+                  trackList={recentlyPlayed}
+                  showTitles={true}
+                  handleLikedSongs={() => {}}
+                  title="Recently Played"
+                />
+              ) : null}
+              {playlistList.length > 0 && (
+                <>
+                  <h3 className="playlist_title">Playlists</h3>
+                  <div className="list_container">
+                    {playlistList.map((item) => (
+                      <Link to={`/playlist/${item._id}`}>
+                        <InfoCard data={item} />
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+              {followingArtist.length > 0 && (
+                <>
+                  <h3 className="playlist_title">Following Artists</h3>
+                  <div className="list_container">
+                    {followingArtist.map((item) => (
+                      <Link to={`/artist/${item._id}`}>
+                        <InfoCard data={item} />
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+              {following.length > 0 && (
+                <>
+                  <h3 className="playlist_title">Following Profiles</h3>
+                  <div className="list_container">
+                    {following.map((item) => (
+                      <Link to={`/user/${item._id}`}>
+                        <InfoCard data={item} />
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          ) : (
+            <div className="loader_container">
+              <Loader />
+            </div>
+          )}
         </div>
       </div>
       <div className="profile_bottom">

@@ -15,7 +15,13 @@
     .playlist_container {
       display: flex;
       width: 100%;
-      max-width: 1024px;
+      max-width: 1424px;
+      .loader_container {
+        display: flex;
+        width: 1024px;
+        justify-content: center;
+        align-items: center;
+      }
       .playlist_right_container {
         display: flex;
 

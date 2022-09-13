@@ -3,18 +3,21 @@ import "./albumcarousel.scss";
 import { useState } from "react";
 import Circle from "@mui/icons-material/Circle";
 import { getAlbums, getArtist } from "../../api/api";
-function AlbumCarousel() {
+function AlbumCarousel({ setLoaderState }) {
   const [index, setIndex] = useState(0);
   const [albumList, setAlbumList] = useState([]);
   const getFeaturedAlbumList = () => {
     const res = getAlbums({ featured: true });
+
     res.then(async (data) => {
       const album_list = await Promise.all(
         data.map(async (item) => {
           const artist = await getArtist(item.artists[0].id);
+
           return { ...item, artists: artist };
         })
       );
+      setLoaderState(false);
       setAlbumList(album_list);
     });
   };
@@ -35,7 +38,7 @@ function AlbumCarousel() {
         background: `linear-gradient(to right, rgb(173, 83, 137), rgb(60, 16, 83))`,
       }}
     >
-      {albumList.length > 0 && (
+      {albumList.length > 0 ? (
         <>
           <div className="albumcarousel_container">
             <div className="albuminfo_container">
@@ -69,7 +72,7 @@ function AlbumCarousel() {
             ))}
           </div>{" "}
         </>
-      )}
+      ) : null}
     </div>
   );
 }

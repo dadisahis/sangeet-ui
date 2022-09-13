@@ -10,7 +10,7 @@
     justify-content: flex-start;
     padding: 5px 0px;
     height: 85px;
-    width: 85px;
+    width: 185px;
     color: white;
     border-radius: 5px;
     cursor: pointer;
@@ -35,6 +35,8 @@
       }
     }
     .img_container {
+      width: 150%;
+      height: 100%;
       .img_wrapper {
         display: flex;
         position: relative;
@@ -46,22 +48,15 @@
         .info_container {
           display: flex;
           justify-content: flex-start;
-          position: absolute;
           bottom: 0%;
-          padding: 5px;
-          width: 70px;
-          height: 50%;
+          padding: 0px 5px;
+          height: auto;
           border-radius: 5px;
-          background: linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0) 16%,
-            rgba(8, 8, 8, 0.4) 44%
-          );
           h3 {
             font-size: 15px;
             font-weight: 600;
             position: absolute;
-            bottom: 10%;
+            bottom: 0%;
           }
         }
       }
