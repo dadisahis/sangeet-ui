@@ -39,7 +39,7 @@ function AlbumCarousel({ setLoaderState }) {
       }}
     >
       {albumList.length > 0 ? (
-        <>
+        <div className="albumcarousel_parent_container">
           <div className="albumcarousel_container">
             <div className="albuminfo_container">
               <p className="artistName">{albumList[index].artists.name}</p>
@@ -71,7 +71,7 @@ function AlbumCarousel({ setLoaderState }) {
               </div>
             ))}
           </div>{" "}
-        </>
+        </div>
       ) : null}
     </div>
   );

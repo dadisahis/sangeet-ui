@@ -56,20 +56,22 @@ function Login() {
               className="input"
             />
           </div>
-          <div className="login_button">
-            <Button className="loginButton" onClick={handleClick}>
-              <p>Login</p>
-            </Button>
-          </div>
-          <div className="login_button">
-            <Button
-              className="loginButton"
-              onClick={() => {
-                navigate("/register");
-              }}
-            >
-              <p>Register</p>
-            </Button>
+          <div className="button_container">
+            <div className="login_button">
+              <Button className="loginButton" onClick={handleClick}>
+                <p>Login</p>
+              </Button>
+            </div>
+            <div className="login_button">
+              <Button
+                className="loginButton"
+                onClick={() => {
+                  navigate("/register");
+                }}
+              >
+                <p>Register</p>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
