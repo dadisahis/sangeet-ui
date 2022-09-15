@@ -13,7 +13,7 @@ function ConversationList({ conversations }) {
   const [currentConversation, setCurrentConversation] = useState(null);
   const socket = useRef();
   useEffect(() => {
-    socket.current = io("http://localhost:8900");
+    socket.current = io(process.env.REACT_APP_SOCKET_URI);
   }, []);
 
   useEffect(() => {
