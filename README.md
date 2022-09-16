@@ -11,7 +11,7 @@
 - You can add to queue or you can add a song to be played next.
 - Custom Profile Page with a list of recently played songs and the artists one follows and list of followers and followings.
 
-#Tech Stack 
+## Tech Stack 
 Sangeet is a MERN stack app.
 - The UI is made using the React
 - The backend api's are made using Node and express
