@@ -21,5 +21,5 @@ Sangeet is a MERN stack app.
 - For messaging socket.io has been integrated.
 
 ## Deployment
- The app has been deployed using a service called Render which lets you host full stack apps for free/ minimal costs.
+The app has been deployed using a service called Render which lets you host full stack apps for free/ minimal costs.
 Here is the live link to the app: https://sangeet-music.onrender.com
