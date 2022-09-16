@@ -27,12 +27,12 @@ function InfoList() {
           <div className="infolist_container">
             <h2>Top Hip-hop Artist</h2>
             <div className="info_card_container">
-              {hipHopList.map((index, item) => (
+              {hipHopList.map((item, index) => (
                 <Link
                   to={`artist/${item._id}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <InfoCard data={item} />
+                  <InfoCard data={item} key={index} />
                 </Link>
               ))}
             </div>
@@ -40,12 +40,12 @@ function InfoList() {
           <div className="infolist_container">
             <h2>Top Pop Artist</h2>
             <div className="info_card_container">
-              {popList.map((index, item) => (
+              {popList.map((item, index) => (
                 <Link
                   to={`artist/${item._id}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <InfoCard data={item} />
+                  <InfoCard data={item} key={index} />
                 </Link>
               ))}
             </div>
@@ -53,12 +53,12 @@ function InfoList() {
           <div className="infolist_container">
             <h2>Top Rock Artists</h2>
             <div className="info_card_container">
-              {rockList.map((index, item) => (
+              {rockList.map((item, index) => (
                 <Link
                   to={`artist/${item._id}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <InfoCard data={item} />
+                  <InfoCard data={item} key={index} />
                 </Link>
               ))}
             </div>
