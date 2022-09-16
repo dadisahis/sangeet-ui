@@ -19,3 +19,7 @@ Sangeet is a MERN stack app.
 - The backend api's are made using Node and express
 - The data is stored in MongoDB
 - For messaging socket.io has been integrated.
+
+## Deployment
+ The app has been deployed using a service called Render which lets you host full stack apps for free/ minimal costs.
+Here is the live link to the app: https://sangeet-music.onrender.com
