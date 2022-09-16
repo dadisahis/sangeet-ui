@@ -65,7 +65,18 @@ function InfoList() {
             </div>
           </div>
         </>
-      ) : null}
+      ) : (
+        <div className="infolist_container">
+          <div className="title skeleton-info skeleton-title"></div>
+          <div className="info_card_container">
+            <div className="card skeleton-info"></div>
+            <div className="card skeleton-info"></div>
+            <div className="card skeleton-info"></div>
+            <div className="card skeleton-info"></div>
+            <div className="card skeleton-info"></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

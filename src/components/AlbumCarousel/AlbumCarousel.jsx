@@ -72,7 +72,35 @@ function AlbumCarousel({ setLoaderState }) {
             ))}
           </div>{" "}
         </div>
-      ) : null}
+      ) : (
+        <div className="albumcarousel_parent_container">
+          <div className="albumcarousel_container">
+            <div className="albuminfo_container">
+              <div className="artistName skeleton skeleton-text"></div>
+              <div className="albumName skeleton skeleton-text"></div>
+              <div className="year skeleton skeleton-text"></div>
+            </div>
+            <div className="albumcarousel_wrapper">
+              <div className="img_container ">
+                <div className="blur_container"></div>
+                <img src="" alt="" className="carousel skeleton" />
+              </div>
+            </div>
+          </div>
+          <div className="carousel_changer">
+            {albumList.map((item, ind) => (
+              <div
+                className={
+                  ind === index ? "circle_container active" : "circle_container"
+                }
+                onClick={() => setIndex(ind)}
+              >
+                <Circle className="circle" />
+              </div>
+            ))}
+          </div>{" "}
+        </div>
+      )}
     </div>
   );
 }

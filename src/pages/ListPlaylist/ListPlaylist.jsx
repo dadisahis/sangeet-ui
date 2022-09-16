@@ -6,6 +6,7 @@ import InfoCard from "../../components/InfoCard/InfoCard";
 import Loader from "../../components/Loader/Loader";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import Soundbar from "../../components/Soundbar/Soundbar";
 import { AuthContext } from "../../context/authContext";
 import { trackContext } from "../../context/trackContext";
 import "./listplaylist.scss";
@@ -51,6 +52,9 @@ function ListPlaylist() {
             </div>
           )}
         </div>
+      </div>
+      <div className="listPlaylist_bottom">
+        {tracks[0].name && <Soundbar />}
       </div>
     </div>
   );
