@@ -33,6 +33,7 @@
           outline: none;
           border: none;
           width: 250px;
+
           padding: 10px 10px;
           border-radius: 20px;
         }
@@ -52,7 +53,8 @@
           padding: 0px 0px;
           justify-content: center;
           border: 1px solid #256d85;
-          width: 100px;
+          width: 100%;
+          max-width: 100px;
           border-radius: 5px;
           background-color: #256d85;
           p {
@@ -95,6 +97,37 @@
     img {
       height: 100%;
       width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .login {
+    .login_wrapper {
+      .info_container {
+        .login_input_container {
+          .input {
+            width: 200px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .login {
+    display: flex;
+    flex-direction: column-reverse;
+    .login_wrapper {
+      width: 100%;
+      .info_container {
+        .login_input_container {
+          .input {
+            width: 200px;
+          }
+        }
+      }
     }
   }
 }

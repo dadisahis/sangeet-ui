@@ -2,6 +2,7 @@
   height: 100vh;
   width: 100%;
   display: flex;
+  overflow-y: auto;
 
   .register_wrapper {
     display: flex;
@@ -91,5 +92,40 @@
       height: 100%;
       width: 100%;
     }
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .register {
+    .register_wrapper {
+      .info_container {
+        .register_input_container {
+          .input {
+            width: 200px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .register {
+    display: flex;
+    flex-direction: column-reverse;
+    .register_wrapper {
+      width: 100%;
+      .info_container {
+        .register_input_container {
+          .input {
+            width: 200px;
+          }
+        }
+      }
+    }
+  }
+  .image_container {
+    height: 100vh;
+    min-height: 60%;
   }
 }
