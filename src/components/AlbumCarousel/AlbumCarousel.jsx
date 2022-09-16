@@ -66,6 +66,7 @@ function AlbumCarousel({ setLoaderState }) {
                   ind === index ? "circle_container active" : "circle_container"
                 }
                 onClick={() => setIndex(ind)}
+                key={index}
               >
                 <Circle className="circle" />
               </div>

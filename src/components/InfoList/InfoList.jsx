@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { getAllArtist } from "../../api/api";
 import InfoCard from "../InfoCard/InfoCard";
 import "./infolist.scss";
-import Loader from "../Loader/Loader";
 
 function InfoList() {
   const [hipHopList, setHipHopList] = useState([]);
@@ -28,12 +27,12 @@ function InfoList() {
           <div className="infolist_container">
             <h2>Top Hip-hop Artist</h2>
             <div className="info_card_container">
-              {hipHopList.map((item) => (
+              {hipHopList.map((index, item) => (
                 <Link
                   to={`artist/${item._id}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <InfoCard data={item} />
+                  <InfoCard data={item} key={index} />
                 </Link>
               ))}
             </div>
@@ -41,12 +40,12 @@ function InfoList() {
           <div className="infolist_container">
             <h2>Top Pop Artist</h2>
             <div className="info_card_container">
-              {popList.map((item) => (
+              {popList.map((index, item) => (
                 <Link
                   to={`artist/${item._id}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <InfoCard data={item} />
+                  <InfoCard data={item} key={index} />
                 </Link>
               ))}
             </div>
@@ -54,12 +53,12 @@ function InfoList() {
           <div className="infolist_container">
             <h2>Top Rock Artists</h2>
             <div className="info_card_container">
-              {rockList.map((item) => (
+              {rockList.map((index, item) => (
                 <Link
                   to={`artist/${item._id}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <InfoCard data={item} />
+                  <InfoCard data={item} key={index} />
                 </Link>
               ))}
             </div>
