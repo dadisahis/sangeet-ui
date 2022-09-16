@@ -1,4 +1,6 @@
 # Sangeet
+
+## Introduction
  It is a music app made using the MERN stack. It has the following features.
 - You can login/register
 - You can search for artists/songs/albums/users
