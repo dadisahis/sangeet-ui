@@ -130,7 +130,6 @@ function ProfilePage() {
           exist = true;
         }
       });
-      console.log(exist);
       if (exist) {
         navigate("/conversations");
       } else {

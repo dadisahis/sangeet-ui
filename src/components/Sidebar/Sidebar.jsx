@@ -48,7 +48,6 @@ function Sidebar() {
       navigate("/list-playlist");
     });
   };
-  console.log(playList);
   return (
     <div className="sidebar">
       {openModal ? (

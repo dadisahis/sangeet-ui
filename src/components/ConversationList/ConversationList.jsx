@@ -24,7 +24,6 @@ function ConversationList({ conversations }) {
       setCurrentConversation(conversations[0]);
     }
   }, [conversations]);
-  console.log(currentConversation);
   return (
     <div className="chat_list">
       <div className="chat_list_left">

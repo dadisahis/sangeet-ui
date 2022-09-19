@@ -12,12 +12,11 @@ import { AuthContext } from "../../context/authContext";
 import Loader from "../../components/Loader/Loader";
 function Home() {
   const { user } = useContext(AuthContext);
-  const { state: tracks, dispatch } = useContext(trackContext);
+  const { state: tracks } = useContext(trackContext);
   const [loader, setLoader] = useState(false);
   function setLoaderState(state) {
     setLoader(state);
   }
-  console.log(loader);
   return (
     <div
       className="home"

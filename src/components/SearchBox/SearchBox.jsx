@@ -4,7 +4,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import { search } from "../../api/api";
 import { useEffect } from "react";
 import SearchResultItem from "../SearchResultItem/SearchResultItem";
-import InfoCard from "../InfoCard/InfoCard";
 import { Link } from "react-router-dom";
 function SearchBox() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,12 +11,14 @@ function SearchBox() {
   const [artists, setArtists] = useState([]);
   const [albums, setAlbums] = useState([]);
   const [users, setUsers] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
 
   const searchItems = () => {
     const tracks = search(searchQuery, "track");
     const album = search(searchQuery, "album");
     const artists = search(searchQuery, "artist");
     const user = search(searchQuery, "user");
+    const playlist = search(searchQuery, "playlist");
     tracks.then((data) => {
       setTracks(data);
     });
@@ -29,6 +30,9 @@ function SearchBox() {
     });
     user.then((data) => {
       setUsers(data);
+    });
+    playlist.then((data) => {
+      setPlaylists(data);
     });
   };
 
@@ -54,7 +58,8 @@ function SearchBox() {
       (artists.length > 0 ||
         tracks.length > 0 ||
         albums.length > 0 ||
-        users.length > 0) ? (
+        users.length > 0 ||
+        playlists.length > 0) ? (
         <div className="searchResults_container">
           {artists.length > 0 && (
             <div className="result_item">
@@ -87,6 +92,16 @@ function SearchBox() {
               <p>Profiles</p>
               {users.map((item) => (
                 <Link to={`/user/${item._id}`}>
+                  <SearchResultItem data={item} />
+                </Link>
+              ))}
+            </div>
+          )}
+          {playlists.length > 0 && (
+            <div className="result_item">
+              <p>Playlists</p>
+              {playlists.map((item) => (
+                <Link to={`/playlist/${item._id}`}>
                   <SearchResultItem data={item} />
                 </Link>
               ))}

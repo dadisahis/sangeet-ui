@@ -14,7 +14,6 @@ function ConversationItem({ conversation, socket, active }) {
       setUser(item);
     });
   };
-  console.log(active);
 
   useEffect(() => {
     getUser();

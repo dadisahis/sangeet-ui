@@ -132,7 +132,6 @@ function ArtistPage() {
     getArtistTrack(id);
     getAlbums(id);
   }, []);
-  console.log(albumList);
 
   return (
     <div

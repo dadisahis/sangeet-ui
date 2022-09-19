@@ -25,7 +25,6 @@ function Register() {
   const handleClick = async (e) => {
     e.preventDefault();
     dispatch({ type: "REGISTER_START" });
-    console.log(credentials);
     const res = registerUser(credentials);
     res
       .then((data) => {

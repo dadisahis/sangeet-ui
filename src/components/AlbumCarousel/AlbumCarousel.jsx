@@ -32,7 +32,6 @@ function AlbumCarousel({ setLoaderState }) {
   useEffect(() => {
     getFeaturedAlbumList();
   }, []);
-  console.log(albumList);
   return (
     <div
       className="albumcarousel"
