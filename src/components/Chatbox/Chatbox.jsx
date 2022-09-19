@@ -48,7 +48,7 @@ function Chatbox({ conversation, socket }) {
   useEffect(() => {
     getUser();
     getMessages();
-  }, []);
+  }, [conversation]);
   useEffect(() => {
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
@@ -83,7 +83,17 @@ function Chatbox({ conversation, socket }) {
             </div>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div className="chatbox_top">
+          <div className="chatbox_userinfo">
+            <div className="profilePic skeleton-chatbox" />
+            <div className="chat_item_info_text">
+              <div className="username skeleton-chatbox skeleton-info"></div>
+              <div className="lastMessage skeleton-chatbox skeleton-info"></div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="chatbox_middle">
         {messages.length > 0 &&
           messages.map((message) => (

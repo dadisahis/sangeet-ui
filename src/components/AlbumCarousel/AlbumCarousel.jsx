@@ -3,6 +3,7 @@ import "./albumcarousel.scss";
 import { useState } from "react";
 import Circle from "@mui/icons-material/Circle";
 import { getAlbums, getArtist } from "../../api/api";
+import { Link } from "react-router-dom";
 function AlbumCarousel({ setLoaderState }) {
   const [index, setIndex] = useState(0);
   const [albumList, setAlbumList] = useState([]);
@@ -31,6 +32,7 @@ function AlbumCarousel({ setLoaderState }) {
   useEffect(() => {
     getFeaturedAlbumList();
   }, []);
+  console.log(albumList);
   return (
     <div
       className="albumcarousel"
@@ -42,7 +44,12 @@ function AlbumCarousel({ setLoaderState }) {
         <div className="albumcarousel_parent_container">
           <div className="albumcarousel_container">
             <div className="albuminfo_container">
-              <p className="artistName">{albumList[index].artists.name}</p>
+              <Link
+                to={`/artist/${albumList[index].artists._id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <p className="artistName">{albumList[index].artists.name}</p>
+              </Link>
               <p className="albumName">{albumList[index].name}</p>
               <p className="year">{`${new Date(
                 albumList[index].release_date

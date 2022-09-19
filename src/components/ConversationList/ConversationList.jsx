@@ -17,15 +17,19 @@ function ConversationList({ conversations }) {
   }, []);
 
   useEffect(() => {
-    socket.current?.on("getUsers", (users) => {
-      console.log(users);
-    });
+    socket.current?.on("getUsers", (users) => {});
   }, []);
+  useEffect(() => {
+    if (conversations.length > 0 && currentConversation === null) {
+      setCurrentConversation(conversations[0]);
+    }
+  }, [conversations]);
+  console.log(currentConversation);
   return (
     <div className="chat_list">
       <div className="chat_list_left">
         <div className="list_top">
-          <p className="title">Messages (29)</p>
+          <p className="title">Messages</p>
         </div>
         <div className="list_bottom">
           {conversations.map((conversation) => (
@@ -33,7 +37,15 @@ function ConversationList({ conversations }) {
               className="conversation_item_container"
               onClick={() => setCurrentConversation(conversation)}
             >
-              <ConversationItem conversation={conversation} socket={socket} />
+              <ConversationItem
+                conversation={conversation}
+                socket={socket}
+                active={
+                  currentConversation
+                    ? currentConversation._id === conversation._id
+                    : false
+                }
+              />
             </div>
           ))}
         </div>

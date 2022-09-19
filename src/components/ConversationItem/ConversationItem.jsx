@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { getUserById } from "../../api/api";
 import { AuthContext } from "../../context/authContext";
 import "./conversationitem.scss";
-function ConversationItem({ conversation, socket }) {
+function ConversationItem({ conversation, socket, active }) {
   const { user: currentUser } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   const getUser = () => {
@@ -14,13 +14,14 @@ function ConversationItem({ conversation, socket }) {
       setUser(item);
     });
   };
+  console.log(active);
 
   useEffect(() => {
     getUser();
     socket.current?.emit("addUser", currentUser._id);
   }, []);
   return (
-    <div className="conversation_item">
+    <div className={active ? "conversation_item active" : "conversation_item"}>
       {user ? (
         <>
           <div className="conversation_item_info">

@@ -36,6 +36,7 @@ function Sidebar() {
   };
   const handleClick = () => {
     const data = createPlaylist(playList);
+    setOpenModal(!openModal);
     data.then((item) => {
       navigate("/list-playlist");
     });

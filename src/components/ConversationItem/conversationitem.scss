@@ -6,6 +6,9 @@
   padding: 0px 10px;
   justify-content: space-between;
   cursor: pointer;
+  &.active {
+    background-color: #465b7718;
+  }
   .lastMessage_time {
     color: #d6d5a8;
     font-size: 14px;
