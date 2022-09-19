@@ -6,10 +6,12 @@ import { getPlaylists } from "../../api/api";
 import { updatePlaylist } from "../../api/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDetectClickOutside } from "../../hooks/useDetectClick";
 
 function ContextMenu({ songInfo, handleAddToQueue, handlePlayNext }) {
   const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
+  const contextMenuRef = useDetectClickOutside(() => setOpen(false));
   const [openPlaylist, setOpenPlaylist] = useState(false);
   const [playlistList, setPlaylistList] = useState([]);
   const getPlaylistList = () => {
@@ -49,7 +51,11 @@ function ContextMenu({ songInfo, handleAddToQueue, handlePlayNext }) {
     getPlaylistList();
   }, []);
   return (
-    <div className="more_options" onClick={() => setOpen(!open)}>
+    <div
+      className="more_options"
+      onClick={() => setOpen(!open)}
+      ref={contextMenuRef}
+    >
       <MoreHorizIcon />
       {open ? (
         <div className="options_container">

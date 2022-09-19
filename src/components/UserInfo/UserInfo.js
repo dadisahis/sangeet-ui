@@ -2,8 +2,10 @@ import React, { useState, useContext, useEffect } from "react";
 import "./userinfo.scss";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
+import { useDetectClickOutside } from "../../hooks/useDetectClick";
 function UserInfo() {
   const navigate = useNavigate();
+  const userInfoRef = useDetectClickOutside(() => setDisplay(false));
   const [display, setDisplay] = useState(false);
 
   const { user, loading, error, dispatch } = useContext(AuthContext);
@@ -14,7 +16,7 @@ function UserInfo() {
   };
 
   return (
-    <div className="userinfo">
+    <div className="userinfo" ref={userInfoRef}>
       <div className="userinfo_icon" onClick={() => setDisplay(!display)}>
         {/* {userData.image ? (
           <img

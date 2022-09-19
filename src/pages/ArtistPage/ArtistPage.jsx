@@ -3,7 +3,12 @@ import Navbar from "../../components/Navbar/Navbar";
 import Soundbar from "../../components/Soundbar/Soundbar";
 import "./artistpage.scss";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { getArtist, getArtistTracks, updateUser } from "../../api/api";
+import {
+  getArtist,
+  getArtistTracks,
+  updateUser,
+  getArtistAlbums,
+} from "../../api/api";
 import { useEffect, useContext, useState } from "react";
 import { trackContext } from "../../context/trackContext";
 import { updateTracks } from "../../api/api";
@@ -12,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../context/authContext";
 import TrackInfo from "../../components/TrackInfo/TrackInfo";
 import Loader from "../../components/Loader/Loader";
+import InfoCard from "../../components/InfoCard/InfoCard";
 
 function ArtistPage() {
   const id = window.location.pathname.split("/")[2];
@@ -19,6 +25,7 @@ function ArtistPage() {
   const { user, dispatch: dispatchUser } = useContext(AuthContext);
   const [artistData, setArtistData] = useState(null);
   const [artistTracks, setArtistTracks] = useState(null);
+  const [albumList, setAlbumList] = useState(null);
   const getArtistData = (id) => {
     const data = getArtist(id);
     data.then((artist) => {
@@ -28,8 +35,13 @@ function ArtistPage() {
   const getArtistTrack = (id) => {
     const data = getArtistTracks(id);
     data.then((tracks) => {
-      console.log(tracks);
       setArtistTracks(tracks);
+    });
+  };
+  const getAlbums = (id) => {
+    const data = getArtistAlbums(id);
+    data.then((albums) => {
+      setAlbumList(albums);
     });
   };
   const handleLikedSongs = (item) => {
@@ -118,7 +130,9 @@ function ArtistPage() {
   useEffect(() => {
     getArtistData(id);
     getArtistTrack(id);
+    getAlbums(id);
   }, []);
+  console.log(albumList);
 
   return (
     <div
@@ -196,6 +210,14 @@ function ArtistPage() {
                 showTitles={true}
                 handleLikedSongs={handleLikedSongs}
               />
+              <div className="infolist_container">
+                <h2>Albums</h2>
+                <div className="info_card_container">
+                  {albumList
+                    ? albumList.map((album) => <InfoCard data={album} />)
+                    : null}
+                </div>
+              </div>
             </div>
           ) : (
             <div className="loader_container">

@@ -70,7 +70,7 @@ export const getArtist = async (id) => {
 
 export const getArtistAlbums = async (id) => {
   const data = await axios.get(
-    `${process.env.REACT_APP_API_URL}` + `/albums/findByArtist/${id}`
+    `${process.env.REACT_APP_API_URL}` + `/album/findByArtist/${id}`
   );
   return data.data;
 };
