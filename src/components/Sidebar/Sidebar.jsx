@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import NewspaperIcon from "@mui/icons-material/Newspaper";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
@@ -10,7 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import CloseIcon from "@mui/icons-material/Close";
-import { Button } from "@mui/material";
+import { Button, Switch } from "@mui/material";
 import "./sidebar.scss";
 import { createPlaylist } from "../../api/api";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +31,15 @@ function Sidebar() {
   });
   const [openModal, setOpenModal] = useState(false);
   const handleChange = (e) => {
-    setPlaylist((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setPlaylist((prev) =>
+      e.target.id === "isPrivate"
+        ? {
+            ...prev,
+            [e.target.id]: e.target.checked,
+            type: e.target.checked ? "private_playlist" : `public_playlist`,
+          }
+        : { ...prev, [e.target.id]: e.target.value }
+    );
   };
   const handleClick = () => {
     const data = createPlaylist(playList);
@@ -41,6 +48,7 @@ function Sidebar() {
       navigate("/list-playlist");
     });
   };
+  console.log(playList);
   return (
     <div className="sidebar">
       {openModal ? (
@@ -61,9 +69,20 @@ function Sidebar() {
               <input
                 type="text"
                 placeholder="Add a description(optional)"
-                id="password"
+                id="description"
                 onChange={handleChange}
                 className="input"
+              />
+            </div>
+            <div className="input_container">
+              <p>Set Playlist as Private</p>
+              <Switch
+                checked={playList.isPrivate || false}
+                id="isPrivate"
+                onChange={handleChange}
+                className="input switch"
+                size="medium"
+                color="success"
               />
             </div>
             <div className="submit_button">

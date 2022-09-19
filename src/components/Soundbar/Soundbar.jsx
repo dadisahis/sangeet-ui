@@ -36,7 +36,9 @@ function Soundbar() {
   const isReady = useRef(false);
 
   // const { duration } = audioRef.current;
-
+  const handleClick = (item) => {
+    dispatch({ type: "CHANGE_TRACK", payload: [item] });
+  };
   const toPreviousTrack = () => {
     if (isLoop) {
       setTrackIndex(trackIndex > 0 ? trackIndex - 1 : tracks.length - 1);
@@ -311,6 +313,7 @@ function Soundbar() {
                         ? "queue_track_info_container active"
                         : "queue_track_info_container"
                     }
+                    onClick={() => handleClick(track)}
                   >
                     <img src={track.albums[0].album_image} alt="" />
                     <p>{track.name}</p>
