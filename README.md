@@ -1,6 +1,9 @@
 # Sangeet
 
 ## Introduction
+![alt text](https://github.com/dadisahis/sangeet-ui/blob/e47e59a38b2acc0fde7ab990cf43d6917f376253/images/Play%20Component%20-%201.png)
+
+
  It is a music app made using the MERN stack. It has the following features.
 - You can login/register
 - You can search for artists/songs/albums/users
