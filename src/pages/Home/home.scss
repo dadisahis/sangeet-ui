@@ -47,11 +47,11 @@
       max-width: 1100px;
       .home_container {
         .home_container_right {
-          width: 60%;
+          width: 75%;
           .playlist_container {
             display: flex;
-            flex-direction: column;
             justify-content: space-between;
+            width: 100%;
           }
         }
       }
@@ -59,16 +59,18 @@
   }
 }
 
-@media screen and (max-width: 875px) {
+@media screen and (max-width: 945px) {
   .home {
     .home_wrapper {
       width: 100%;
       min-width: 700px;
       .home_container {
         .home_container_right {
-          width: 60%;
+          width: 65%;
           .playlist_container {
             display: flex;
+            flex-direction: column;
+            width: 100%;
           }
         }
       }
@@ -76,20 +78,27 @@
   }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 650px) {
   .home {
+    display: flex;
+    width: 100vw;
     .home_wrapper {
       width: 100%;
       .home_container {
         display: flex;
+        justify-content: center;
         width: 100%;
-        min-width: 400px;
-        max-width: 550px;
+        min-width: 600px;
         .home_container_right {
           display: flex;
           // width: 30%;
+          width: 50%;
+          align-items: center;
           .playlist_container {
             display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
           }
         }
       }

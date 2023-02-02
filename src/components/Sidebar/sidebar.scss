@@ -69,7 +69,6 @@
     margin: 20px 0px;
     width: 80px;
     height: auto;
-
     .sidebar_top {
       display: flex;
       height: 120%;
@@ -91,6 +90,45 @@
 
         .sidebar_item:hover {
           color: rgba(127, 255, 212, 0.151);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .sidebar {
+    display: flex;
+    width: 105vw;
+    position: fixed;
+    bottom: 0px;
+    z-index: 999;
+    height: 10%;
+    margin: 0px 0px 0px 0px;
+    border-radius: 0px;
+    .sidebar_container {
+      display: flex;
+      width: 100vw;
+      align-items: center;
+      justify-content: space-evenly;
+
+      margin: 0px;
+      .sidebar_top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        .sidebar_items {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-evenly;
+          width: 100%;
+          .sidebar_item {
+            &.type {
+              margin: 0px;
+            }
+          }
         }
       }
     }

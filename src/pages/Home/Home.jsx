@@ -20,7 +20,9 @@ function Home() {
   return (
     <div
       className="home"
-      style={{ height: tracks[0].name ? `calc(100vh - 80px)` : "100vh" }}
+      style={{
+        height: tracks[0].name ? `calc(100vh - 80px)` : `100vh`,
+      }}
     >
       <div className="home_wrapper">
         <div className="home_top">
