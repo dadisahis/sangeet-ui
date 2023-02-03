@@ -38,7 +38,6 @@
     }
     .navbar_right {
       display: flex;
-      justify-content: flex-end;
       align-items: center;
       .right_items {
         display: flex;
@@ -242,7 +241,7 @@
 @media screen and (max-width: 550px) {
   .navbar {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     color: aquamarine;
     z-index: 999;
     .navbar_container {

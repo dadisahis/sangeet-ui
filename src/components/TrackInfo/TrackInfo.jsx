@@ -44,7 +44,7 @@ function TrackInfo({
         </h3>
       ) : null}
       <table className="tracktable_container">
-        {showTitles ? (
+        {/* {showTitles ? (
           <thead className="track_container">
             <td width={290}>
               <p className="table_header">Song</p>
@@ -59,7 +59,7 @@ function TrackInfo({
               <p className="table_header">Album</p>
             </td>
           </thead>
-        ) : null}
+        ) : null} */}
         {trackList.map((item, index) => (
           <tr
             className={
@@ -68,7 +68,7 @@ function TrackInfo({
             onDoubleClick={() => handleClick(item)}
             key={index}
           >
-            <td width={300}>
+            <td className="table_data">
               <div className="trackName">
                 {item.albums.length > 0 ? (
                   <img src={item.albums[0].album_image} alt="" />
@@ -78,18 +78,26 @@ function TrackInfo({
                     alt=""
                   />
                 )}
-                <p>{item.name}</p>
+                <div className="track_details">
+                  <p>{item.name}</p>
+                  {item.artists.length > 0 ? (
+                    <p className="track_artist_name">
+                      {item.artists[0].artist_name}
+                    </p>
+                  ) : null}
+                </div>
               </div>
             </td>
-            <td width={120}>
+
+            <td className="table_data medium small">
               <p>{`${item.total_plays.toLocaleString("en-US")}`}</p>
             </td>
 
-            <td width={100}>
+            <td className="table_data small">
               <p>{item.duration}</p>
             </td>
             {item.albums.length > 0 ? (
-              <td width={300}>
+              <td className="table_data small">
                 <div className="trackName">
                   <p>{item.albums[0].album_name}</p>
                 </div>
@@ -97,7 +105,7 @@ function TrackInfo({
             ) : null}
             {user ? (
               <>
-                <td width={100}>
+                <td className="table_data">
                   <div
                     className={
                       item.liked_by && user && item.liked_by.includes(user._id)
@@ -111,7 +119,7 @@ function TrackInfo({
                     <FavoriteIcon />
                   </div>
                 </td>
-                <td width={100}>
+                <td className="table_data">
                   <ContextMenu
                     songInfo={item}
                     handleAddToQueue={handleAddToQueue}
