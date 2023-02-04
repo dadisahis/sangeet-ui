@@ -40,3 +40,29 @@
     width: 100%;
   }
 }
+@media screen and (max-width: 750px) {
+  .listPlaylist {
+    display: flex;
+    width: 100vw;
+    .listPlaylist_wrapper {
+      width: 100%;
+      .listPlaylist_container {
+        display: flex;
+        width: 100%;
+        .listPlaylist_container_right {
+          display: flex;
+          // width: 30%;
+          width: 100%;
+          align-items: center;
+          .list_container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}

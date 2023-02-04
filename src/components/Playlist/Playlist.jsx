@@ -13,6 +13,7 @@ import Loader from "../Loader/Loader";
 function Playlist({ playlistObj, getTracks, isCustom, id }) {
   const { state: tracks } = useContext(trackContext);
   const { user } = useContext(AuthContext);
+  let screenSize = window.screen.width;
   const handleLikedSongs = (item) => {
     if (item.liked_by === null || !item.liked_by.includes(user._id)) {
       const data = updateTracks(
@@ -55,7 +56,14 @@ function Playlist({ playlistObj, getTracks, isCustom, id }) {
   return (
     <div
       className="playlist"
-      style={{ height: tracks[0].name ? `calc(100vh - 80px)` : "100vh" }}
+      style={{
+        height:
+          tracks[0].name && screenSize < 750
+            ? `calc(100vh - 140px)`
+            : tracks[0].name || screenSize < 750
+            ? `calc(100vh-80px)`
+            : "100vh",
+      }}
     >
       <div className="playlist_wrapper">
         <div className="playlist_top">
@@ -99,7 +107,11 @@ function Playlist({ playlistObj, getTracks, isCustom, id }) {
       </div>
 
       <div className="playlist_bottom">
-        {tracks[0].name ? <Soundbar /> : null}
+        {tracks[0].name ? (
+          <>
+            <Soundbar />
+          </>
+        ) : null}
       </div>
       <ToastContainer />
     </div>

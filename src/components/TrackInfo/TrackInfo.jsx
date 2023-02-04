@@ -65,7 +65,7 @@ function TrackInfo({
             className={
               index % 2 === 0 ? "track_container even" : "track_container"
             }
-            onDoubleClick={() => handleClick(item)}
+            onClick={() => handleClick(item)}
             key={index}
           >
             <td className="table_data">

@@ -26,6 +26,7 @@ function ArtistPage() {
   const [artistData, setArtistData] = useState(null);
   const [artistTracks, setArtistTracks] = useState(null);
   const [albumList, setAlbumList] = useState(null);
+  let screenSize = window.screen.width;
   const getArtistData = (id) => {
     const data = getArtist(id);
     data.then((artist) => {
@@ -136,7 +137,14 @@ function ArtistPage() {
   return (
     <div
       className="artistPage"
-      style={{ height: tracks[0].name ? `calc(100vh - 80px)` : "100vh" }}
+      style={{
+        height:
+          tracks[0].name && screenSize < 750
+            ? `calc(100vh - 140px)`
+            : tracks[0].name || screenSize < 750
+            ? `calc(100vh-80px)`
+            : "100vh",
+      }}
     >
       <div className="artistPage_wrapper">
         <div className="artistPage_top">

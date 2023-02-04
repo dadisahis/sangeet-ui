@@ -14,6 +14,7 @@ function Home() {
   const { user } = useContext(AuthContext);
   const { state: tracks } = useContext(trackContext);
   const [loader, setLoader] = useState(false);
+  let screenSize = window.screen.width;
   function setLoaderState(state) {
     setLoader(state);
   }
@@ -21,7 +22,12 @@ function Home() {
     <div
       className="home"
       style={{
-        height: tracks[0].name ? `calc(100vh - 80px)` : `100vh`,
+        height:
+          tracks[0].name && screenSize < 750
+            ? `calc(100vh - 140px)`
+            : tracks[0].name || screenSize < 750
+            ? `calc(100vh-80px)`
+            : "100vh",
       }}
     >
       <div className="home_wrapper">

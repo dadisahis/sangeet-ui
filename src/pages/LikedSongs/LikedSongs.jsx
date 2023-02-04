@@ -10,6 +10,7 @@ function LikedSongs() {
   const { state: tracks } = useContext(trackContext);
   const { user } = useContext(AuthContext);
   const [trackList, setTrackList] = useState(null);
+  let screenSize = window.screen.width;
   const getTrackList = () => {
     const data = getTracks({ liked_by: user._id });
     data.then((track) => {
@@ -20,13 +21,21 @@ function LikedSongs() {
       });
     });
   };
+  console.log(tracks[0].name && screenSize < 750);
   useEffect(() => {
     getTrackList();
   }, [trackList]);
   return (
     <div
       className="likedSongs"
-      style={{ height: tracks[0].name ? `calc(100vh - 80px)` : "100vh" }}
+      style={{
+        height:
+          tracks[0].name && screenSize < 750
+            ? `calc(100vh - 140px)`
+            : tracks[0].name || screenSize < 750
+            ? `calc(100vh-80px)`
+            : "100vh",
+      }}
     >
       <Playlist
         playlistObj={trackList}

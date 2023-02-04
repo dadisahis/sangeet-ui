@@ -179,11 +179,13 @@ function Soundbar() {
               <FavoriteIcon className="favourite_icon" />
             </div>
             <div className="soundbar_right">
-              <div className="right_icon">
+              <div className="right_icon hide">
                 <VolumeUpIcon />
               </div>
               <div
-                className={isLoop ? "right_icon active" : "right_icon"}
+                className={
+                  isLoop ? "right_icon active hide" : "right_icon hide"
+                }
                 onClick={() => {
                   setIsLoop(!isLoop);
                 }}
@@ -191,7 +193,9 @@ function Soundbar() {
                 <RepeatIcon />
               </div>
               <div
-                className={isRandom ? "right_icon active" : "right_icon"}
+                className={
+                  isRandom ? "right_icon active hide" : "right_icon hide"
+                }
                 onClick={() => {
                   setIsRandom(!isRandom);
                 }}
