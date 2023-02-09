@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { trackContext } from "../../context/trackContext";
 import "./likedsongs.scss";
 import { useEffect } from "react";
@@ -21,16 +21,15 @@ function LikedSongs() {
       });
     });
   };
-  console.log(tracks[0].name && screenSize < 750);
   useEffect(() => {
     getTrackList();
-  }, [trackList]);
+  }, []);
   return (
     <div
       className="likedSongs"
       style={{
         height:
-          tracks[0].name && screenSize < 750
+          tracks.len > 0 && tracks[0].name && screenSize < 750
             ? `calc(100vh - 140px)`
             : tracks[0].name || screenSize < 750
             ? `calc(100vh-80px)`

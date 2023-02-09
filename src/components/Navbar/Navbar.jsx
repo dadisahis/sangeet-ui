@@ -101,7 +101,7 @@ function Navbar() {
             )}
           </div>
           {open && (
-            <div className="right_items">
+            <div className="right_items open">
               <div className="right_item">
                 <SearchBox />
               </div>

@@ -10,14 +10,38 @@ import { trackContext } from "../../context/trackContext";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import Loader from "../../components/Loader/Loader";
+import { getTrackObject } from "../../api/api";
+import { useEffect } from "react";
 function Home() {
   const { user } = useContext(AuthContext);
   const { state: tracks } = useContext(trackContext);
   const [loader, setLoader] = useState(false);
+  const [audio, setAudio] = useState(null);
   let screenSize = window.screen.width;
   function setLoaderState(state) {
     setLoader(state);
   }
+  const downloadAudio = async () => {
+    const data = getTrackObject("63e3b481a82c636650eb7d2a");
+    data.then((audioData) => {
+      console.log(audioData[0]);
+      // var raw = window.atob(audio);
+      // var arr = new Uint8Array(new ArrayBuffer(audio.length));
+      // for (var i = 0; i < audio.length; i++) {
+      //   arr[i] = raw.charCodeAt(i);
+      // }
+      // let blob = new Blob([arr], { type: "audio/mp3" });
+      // let audioURL = window.URL.createObjectURL(blob);
+      // console.log(audioURL);
+      // // item = { ...item, trackObject: audioURL };
+      // // audioRef.current.src = audioURL;
+      setAudio(audioData);
+    });
+  };
+  useEffect(() => {
+    downloadAudio();
+  }, []);
+
   return (
     <div
       className="home"

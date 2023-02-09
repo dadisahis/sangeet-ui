@@ -123,13 +123,18 @@
         top: 60px;
         left: 00px;
         z-index: 999;
-        height: 100vh;
+        transition: height ease 1s;
+        height: 100px;
         width: 100vw;
+        overflow: hidden;
         background: linear-gradient(
           178.1deg,
           rgb(60, 55, 106) 8.5%,
           rgb(23, 20, 69) 82.4%
         );
+        &.open {
+          height: 100vh;
+        }
         img {
           height: 30px;
           width: 30px;
@@ -284,6 +289,7 @@
         align-items: center;
         .right_items {
           display: flex;
+          transition: height ease 1s;
           img {
             height: 30px;
             width: 30px;

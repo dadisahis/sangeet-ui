@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+  useMemo,
+  useCallback,
+} from "react";
 import "./soundbar.scss";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
@@ -10,14 +17,13 @@ import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { trackList } from "../../data/tracks";
 import { trackContext } from "../../context/trackContext";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { AuthContext } from "../../context/authContext";
+import { getTrackObject } from "../../api/api";
 
 function Soundbar() {
   // states
-  // const tracks = trackList;
   const { state: tracks, dispatch } = useContext(trackContext);
   const { user } = useContext(AuthContext);
   const [trackIndex, setTrackIndex] = useState(0);
@@ -27,18 +33,23 @@ function Soundbar() {
   const [isLoop, setIsLoop] = useState(false);
   const [isRandom, setIsRandom] = useState(false);
   const [openArtwork, setOpenArtwork] = useState(false);
-  const [trackQueue, setTrackQueue] = useState(tracks);
   //ref
-  // const audioSrc = tracks[trackIndex].audioSrc;
-
-  // const audioRef = useRef(new Audio(audioSrc));
+  const audioRef = useRef(new Audio(null));
   const intervalRef = useRef();
-  const isReady = useRef(false);
+  const isReady = useRef(true);
+  const { duration } = audioRef.current;
+  console.log(audioRef.current.src);
 
-  // const { duration } = audioRef.current;
+  const downloadAudio = async (item) => {
+    if (item.trackObject) {
+      const audioURL = getTrackObject(item.trackObject);
+      audioRef.current.src = audioURL;
+    }
+  };
   const handleClick = (item) => {
     dispatch({ type: "CHANGE_TRACK", payload: [item] });
   };
+
   const toPreviousTrack = () => {
     if (isLoop) {
       setTrackIndex(trackIndex > 0 ? trackIndex - 1 : tracks.length - 1);
@@ -57,51 +68,54 @@ function Soundbar() {
     }
     // dispatch({ type: "CHANGE_TRACK", payload: [tracks[trackIndex]] });
   };
-  //   const currentPercentage = duration
-  //     ? `${(trackProgress / duration) * 100}%`
-  //     : "0%";
-  //   const trackStyling = `
-  //   -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #FFF), color-stop(${currentPercentage}, #777))
-  // `;
+  const currentPercentage = duration
+    ? `${(trackProgress / duration) * 100}%`
+    : "0%";
+  const trackStyling = `
+    -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #FFF), color-stop(${currentPercentage}, #777))
+  `;
 
-  // const startTimer = () => {
-  //   clearInterval(intervalRef.current);
-  //   intervalRef.current = setInterval(() => {
-  //     if (audioRef.current.ended) {
-  //       toNextTrack();
-  //     } else {
-  //       setTrackProgress(audioRef.current.currentTime);
-  //     }
-  //   }, [1000]);
-  // };
+  const startTimer = () => {
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      if (audioRef.current.ended) {
+        toNextTrack();
+      } else {
+        setTrackProgress(audioRef.current.currentTime);
+      }
+    }, [1000]);
+  };
 
-  // const onScrub = (value) => {
-  //   clearInterval(intervalRef.current);
-  //   audioRef.current.currentTime = value;
-  //   setTrackProgress(audioRef.current.currentTime);
-  // };
+  const onScrub = (value) => {
+    clearInterval(intervalRef.current);
+    audioRef.current.currentTime = value;
+    setTrackProgress(audioRef.current.currentTime);
+  };
 
-  // const onScrubEnd = () => {
-  //   if (!isPlaying) {
-  //     setIsPlaying(true);
-  //   }
-  //   startTimer();
-  // };
+  const onScrubEnd = () => {
+    if (!isPlaying) {
+      setIsPlaying(true);
+    }
+    startTimer();
+  };
 
-  // const onScrubVolume = (value) => {
-  //   audioRef.current.volume = value;
-  //   setTrackVolume(audioRef.current.volume);
-  // };
+  const onScrubVolume = (value) => {
+    audioRef.current.volume = value;
+    setTrackVolume(audioRef.current.volume);
+  };
+  useEffect(() => {
+    downloadAudio(tracks[trackIndex]);
+  }, []);
 
-  // useEffect(() => {
-  //   if (isPlaying) {
-  //     audioRef.current.play();
-  //     startTimer();
-  //   } else {
-  //     clearInterval(intervalRef.current);
-  //     audioRef.current.pause();
-  //   }
-  // }, [isPlaying]);
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.play();
+      startTimer();
+    } else {
+      clearInterval(intervalRef.current);
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
 
   // useEffect(() => {
   //   return () => {
@@ -110,20 +124,22 @@ function Soundbar() {
   //   };
   // }, []);
 
-  // useEffect(() => {
-  //   audioRef.current.pause();
-  //   audioRef.current = new Audio(audioSrc);
-  //   setTrackProgress(audioRef.current.currentTime);
-  //   if (!isReady.current) {
-  //     audioRef.current.play();
-  //     setIsPlaying(!isPlaying);
-  //     startTimer();
-  //     isReady.current = true;
-  //   } else {
-  //     isReady.current = false;
-  //   }
-  //   dispatch({ type: "CHANGE_TRACK", payload: tracks[trackIndex] });
-  // }, [trackIndex]);
+  useEffect(() => {
+    // audioRef.current.pause();
+    clearInterval(intervalRef.current);
+    downloadAudio(tracks[trackIndex]);
+    setTrackProgress(audioRef.current.currentTime);
+    if (!isReady.current) {
+      audioRef.current.play();
+      setIsPlaying(!isPlaying);
+      startTimer();
+      isReady.current = true;
+    } else {
+      isReady.current = false;
+    }
+    // dispatch({ type: "CHANGE_TRACK", payload: [tracks[trackIndex]] });
+  }, [trackIndex]);
+  console.log(trackIndex);
 
   return (
     <div className={openArtwork ? "soundbar open" : "soundbar"}>
@@ -132,14 +148,14 @@ function Soundbar() {
         value={trackProgress}
         step="1"
         min="0"
-        // max={duration ? duration : `${duration}`}
+        max={duration ? duration : `${duration}`}
         className="progressBar"
-        // onChange={(e) => {
-        //   onScrub(e.target.value);
-        // }}
-        // onMouseUp={onScrubEnd}
-        // onKeyUp={onScrubEnd}
-        // style={{ background: trackStyling }}
+        onChange={(e) => {
+          onScrub(e.target.value);
+        }}
+        onMouseUp={onScrubEnd}
+        onKeyUp={onScrubEnd}
+        style={{ background: trackStyling }}
       />
       <div
         className={
@@ -150,7 +166,10 @@ function Soundbar() {
           <>
             <div className="soundbar_left">
               <div className="button_container">
-                <div className="icon_container" onClick={toPreviousTrack}>
+                <div
+                  className="icon_container"
+                  onClick={() => toPreviousTrack()}
+                >
                   <SkipPreviousIcon className="skip_icon" />
                 </div>
                 <div
@@ -163,7 +182,7 @@ function Soundbar() {
                     <PlayArrowIcon className="play_icon" />
                   )}
                 </div>
-                <div className="icon_container" onClick={toNextTrack}>
+                <div className="icon_container" onClick={() => toNextTrack()}>
                   <SkipNextIcon className="skip_icon" />
                 </div>
               </div>
@@ -244,7 +263,10 @@ function Soundbar() {
                       }}
                     />
                   </div>
-                  <div className="icon_container" onClick={toPreviousTrack}>
+                  <div
+                    className="icon_container"
+                    onClick={() => toPreviousTrack()}
+                  >
                     <SkipPreviousIcon className="skip_icon" />
                   </div>
                   <div
@@ -257,7 +279,7 @@ function Soundbar() {
                       <PlayArrowIcon className="play_icon" />
                     )}
                   </div>
-                  <div className="icon_container" onClick={toNextTrack}>
+                  <div className="icon_container" onClick={() => toNextTrack()}>
                     <SkipNextIcon className="skip_icon" />
                   </div>
                   <div className="icon_container">
@@ -273,17 +295,17 @@ function Soundbar() {
               <div className="soundbar_top_right">
                 <div
                   className="right_icon"
-                  // onClick={() => {
-                  //   audioRef.current.volume > 0
-                  //     ? onScrubVolume(0)
-                  //     : onScrubVolume(1);
-                  // }}
+                  onClick={() => {
+                    audioRef.current.volume > 0
+                      ? onScrubVolume(0)
+                      : onScrubVolume(1);
+                  }}
                 >
-                  {/* {audioRef.current.volume > 0 ? (
-                  <VolumeUpIcon />
-                ) : (
-                  <VolumeOffIcon />
-                )} */}
+                  {audioRef.current.volume > 0 ? (
+                    <VolumeUpIcon />
+                  ) : (
+                    <VolumeOffIcon />
+                  )}
                   <VolumeUpIcon />
                 </div>
                 <input
@@ -293,11 +315,11 @@ function Soundbar() {
                   min={0}
                   max={1}
                   className="volumeBar"
-                  // onChange={(e) => {
-                  //   onScrubVolume(e.target.value);
-                  // }}
-                  // onMouseUp={onScrubEnd}
-                  // onKeyUp={onScrubEnd}
+                  onChange={(e) => {
+                    onScrubVolume(e.target.value);
+                  }}
+                  onMouseUp={onScrubEnd}
+                  onKeyUp={onScrubEnd}
                 />
                 <div
                   className="right_icon"

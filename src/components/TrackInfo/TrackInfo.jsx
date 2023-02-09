@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useContext, useState } from "react";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ContextMenu from "../ContextMenu/ContextMenu";
 import { AuthContext } from "../../context/authContext";
@@ -22,8 +21,12 @@ function TrackInfo({
   const [openOptions, setOpenOptions] = useState(
     new Array(trackList.length).fill(false)
   );
+
   const handleClick = (item) => {
-    dispatch({ type: "CHANGE_TRACK", payload: [item] });
+    dispatch({
+      type: "CHANGE_TRACK",
+      payload: [item],
+    });
   };
 
   const handleAddToQueue = (item) => {

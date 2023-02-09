@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import axios from "axios";
 const token = window.localStorage.getItem("access_token");
 export const search = async (query, type) => {
@@ -170,4 +171,10 @@ export const createMessage = async (payload) => {
     payload
   );
   return data.data;
+};
+
+export const getTrackObject = (id) => {
+  const data = `${process.env.REACT_APP_API_URL}` + `/track/getAudio/${id}`;
+
+  return data;
 };
