@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import axios from "axios";
 const token = window.localStorage.getItem("access_token");
 export const search = async (query, type) => {
