@@ -139,7 +139,6 @@ function Soundbar() {
     }
     // dispatch({ type: "CHANGE_TRACK", payload: [tracks[trackIndex]] });
   }, [trackIndex]);
-  console.log(trackIndex);
 
   return (
     <div className={openArtwork ? "soundbar open" : "soundbar"}>
