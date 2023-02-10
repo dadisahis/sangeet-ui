@@ -38,7 +38,6 @@ function Soundbar() {
   const intervalRef = useRef();
   const isReady = useRef(true);
   const { duration } = audioRef.current;
-  console.log(audioRef.current.src);
 
   const downloadAudio = async (item) => {
     if (item.trackObject) {
