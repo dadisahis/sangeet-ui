@@ -1,12 +1,14 @@
 import React from "react";
-import { useEffect, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ContextMenu from "../ContextMenu/ContextMenu";
 import { AuthContext } from "../../context/authContext";
 import { trackContext } from "../../context/trackContext";
-import { ToastContainer, toast } from "react-toastify";
+import { getTrackObject } from "../../api/api";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./trackinfo.scss";
+import { PlayArrow } from "@mui/icons-material";
 
 function TrackInfo({
   trackList,
@@ -23,6 +25,8 @@ function TrackInfo({
   );
 
   const handleClick = (item) => {
+    const audioURL = getTrackObject(item.trackObject);
+    item = { ...item, trackObject: audioURL };
     dispatch({
       type: "CHANGE_TRACK",
       payload: [item],
@@ -30,10 +34,14 @@ function TrackInfo({
   };
 
   const handleAddToQueue = (item) => {
+    const audioURL = getTrackObject(item.trackObject);
+    item = { ...item, trackObject: audioURL };
     tracks.push(item);
     dispatch({ type: "ADD_TO_QUEUE", payload: tracks });
   };
   const handlePlayNext = (item) => {
+    const audioURL = getTrackObject(item.trackObject);
+    item = { ...item, trackObject: audioURL };
     tracks.splice(1, 0, item);
     dispatch({ type: "PLAY_NEXT", payload: tracks });
   };
@@ -68,9 +76,15 @@ function TrackInfo({
             className={
               index % 2 === 0 ? "track_container even" : "track_container"
             }
-            onClick={() => handleClick(item)}
+            onDoubleClick={() => handleClick(item)}
             key={index}
           >
+            <td
+              className="table_data play_icon"
+              onClick={() => handleClick(item)}
+            >
+              <PlayArrow />
+            </td>
             <td className="table_data">
               <div className="trackName">
                 {item.albums.length > 0 ? (

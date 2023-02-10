@@ -52,6 +52,30 @@
               text-transform: capitalize;
             }
           }
+          .button_container {
+            margin-left: 5%;
+            padding-top: 5px;
+            display: flex;
+            align-items: center;
+            .button {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 5px;
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              background-color: rgb(104, 157, 25);
+              cursor: pointer;
+              .MuiSvgIcon-root {
+                font-size: 30px;
+              }
+
+              &.delete {
+                background-color: red;
+              }
+            }
+          }
         }
       }
     }

@@ -177,3 +177,10 @@ export const getTrackObject = (id) => {
 
   return data;
 };
+
+export const deletePlaylist = async (id) => {
+  const data = await axios.delete(
+    `${process.env.REACT_APP_API_URL}` + `/playlist/delete/${id}`
+  );
+  return data.data;
+};

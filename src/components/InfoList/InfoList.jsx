@@ -31,6 +31,7 @@ function InfoList() {
                 <Link
                   to={`artist/${item._id}`}
                   style={{ textDecoration: "none" }}
+                  key={index}
                 >
                   <InfoCard data={item} key={index} />
                 </Link>
@@ -44,6 +45,7 @@ function InfoList() {
                 <Link
                   to={`artist/${item._id}`}
                   style={{ textDecoration: "none" }}
+                  key={index}
                 >
                   <InfoCard data={item} key={index} />
                 </Link>
@@ -57,6 +59,7 @@ function InfoList() {
                 <Link
                   to={`artist/${item._id}`}
                   style={{ textDecoration: "none" }}
+                  key={index}
                 >
                   <InfoCard data={item} key={index} />
                 </Link>

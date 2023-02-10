@@ -1,5 +1,4 @@
 import React, { createContext, useReducer } from "react";
-import { getTrackObject } from "../api/api";
 
 export const INITIAL_STATE = [
   {

@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
+import { useCallback } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getPlaylists } from "../../api/api";
@@ -13,8 +14,10 @@ import "./listplaylist.scss";
 
 function ListPlaylist() {
   const { user } = useContext(AuthContext);
+
   const { state: tracks, dispatch } = useContext(trackContext);
   const [playlistList, setPlaylistList] = useState([]);
+  let screenSize = window.screen.width;
   const getPlaylistList = () => {
     const data = getPlaylists({ user_id: user._id });
     data.then((list) => {
@@ -23,11 +26,18 @@ function ListPlaylist() {
   };
   useEffect(() => {
     getPlaylistList();
-  }, []);
+  }, [playlistList.length]);
   return (
     <div
       className="listPlaylist"
-      style={{ height: tracks[0].name ? `calc(100vh - 80px)` : "100vh" }}
+      style={{
+        height:
+          tracks[0].name && screenSize < 750
+            ? `calc(100vh - 140px)`
+            : tracks[0].name || screenSize < 750
+            ? `calc(100vh-80px)`
+            : "100vh",
+      }}
     >
       <div className="listPlaylist_wrapper">
         <div className="listPlaylist_top">
@@ -35,7 +45,7 @@ function ListPlaylist() {
         </div>
         <div className="listPlaylist_container">
           <Sidebar />
-          {playlistList.length > 0 ? (
+          {playlistList && playlistList.length > 0 ? (
             <div className="listPlaylist_container_right">
               <h1>Playlists</h1>
               <div className="list_container">
@@ -44,6 +54,16 @@ function ListPlaylist() {
                     <InfoCard data={item} />
                   </Link>
                 ))}
+              </div>
+            </div>
+          ) : playlistList && playlistList.length === 0 ? (
+            <div className="listPlaylist_container_right">
+              <h1>Playlists</h1>
+              <div className="disclaimer">
+                <p>
+                  Its looks lonely up here 😔. Why you dont you try creating
+                  yourself a playlist?
+                </p>
               </div>
             </div>
           ) : (

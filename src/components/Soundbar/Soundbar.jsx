@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useContext,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import "./soundbar.scss";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
@@ -20,7 +13,6 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { trackContext } from "../../context/trackContext";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { AuthContext } from "../../context/authContext";
-import { getTrackObject } from "../../api/api";
 
 function Soundbar() {
   // states
@@ -33,20 +25,15 @@ function Soundbar() {
   const [isLoop, setIsLoop] = useState(false);
   const [isRandom, setIsRandom] = useState(false);
   const [openArtwork, setOpenArtwork] = useState(false);
+
   //ref
-  const audioRef = useRef(new Audio(null));
+  const audioRef = useRef(new Audio(tracks[trackIndex].trackObject));
   const intervalRef = useRef();
   const isReady = useRef(true);
   const { duration } = audioRef.current;
 
-  const downloadAudio = async (item) => {
-    if (item.trackObject) {
-      const audioURL = getTrackObject(item.trackObject);
-      audioRef.current.src = audioURL;
-    }
-  };
-  const handleClick = (item) => {
-    dispatch({ type: "CHANGE_TRACK", payload: [item] });
+  const handleClick = (index) => {
+    setTrackIndex(index);
   };
 
   const toPreviousTrack = () => {
@@ -102,9 +89,6 @@ function Soundbar() {
     audioRef.current.volume = value;
     setTrackVolume(audioRef.current.volume);
   };
-  useEffect(() => {
-    downloadAudio(tracks[trackIndex]);
-  }, []);
 
   useEffect(() => {
     if (isPlaying) {
@@ -124,20 +108,17 @@ function Soundbar() {
   // }, []);
 
   useEffect(() => {
-    // audioRef.current.pause();
+    audioRef.current.pause();
+    audioRef.current = new Audio(tracks[trackIndex].trackObject);
     clearInterval(intervalRef.current);
-    downloadAudio(tracks[trackIndex]);
     setTrackProgress(audioRef.current.currentTime);
-    if (!isReady.current) {
-      audioRef.current.play();
-      setIsPlaying(!isPlaying);
-      startTimer();
-      isReady.current = true;
-    } else {
-      isReady.current = false;
-    }
+
+    audioRef.current.play();
+    setIsPlaying(!isPlaying);
+    startTimer();
+
     // dispatch({ type: "CHANGE_TRACK", payload: [tracks[trackIndex]] });
-  }, [trackIndex]);
+  }, [trackIndex, tracks]);
 
   return (
     <div className={openArtwork ? "soundbar open" : "soundbar"}>
@@ -304,7 +285,6 @@ function Soundbar() {
                   ) : (
                     <VolumeOffIcon />
                   )}
-                  <VolumeUpIcon />
                 </div>
                 <input
                   type="range"
@@ -337,7 +317,7 @@ function Soundbar() {
                         ? "queue_track_info_container active"
                         : "queue_track_info_container"
                     }
-                    onClick={() => handleClick(track)}
+                    onClick={() => handleClick(index)}
                   >
                     <img src={track.albums[0].album_image} alt="" />
                     <p>{track.name}</p>

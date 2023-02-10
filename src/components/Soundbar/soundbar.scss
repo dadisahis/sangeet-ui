@@ -85,6 +85,7 @@
       }
       .middle_right {
         margin-left: 5px;
+        text-transform: capitalize;
         h4 {
           font-weight: 550;
         }
@@ -113,8 +114,9 @@
     }
     .soundbar_open_container {
       display: flex;
-      width: 90%;
-      justify-content: space-evenly;
+      width: 100%;
+      justify-content: space-around;
+      align-items: center;
       .soundbar_open_wrapper {
         display: flex;
         flex-direction: column;
@@ -201,6 +203,10 @@
     .queue_component {
       display: flex;
       flex-direction: column;
+      height: 60%;
+      overflow-y: auto;
+      overflow-x: hidden;
+
       .queue_track_info_container {
         display: flex;
         align-items: center;

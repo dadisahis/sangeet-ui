@@ -9,21 +9,7 @@ import Loader from "../../components/Loader/Loader";
 function LikedSongs() {
   const { state: tracks } = useContext(trackContext);
   const { user } = useContext(AuthContext);
-  const [trackList, setTrackList] = useState(null);
   let screenSize = window.screen.width;
-  const getTrackList = () => {
-    const data = getTracks({ liked_by: user._id });
-    data.then((track) => {
-      setTrackList({
-        type: "Playlist",
-        name: "Liked Songs",
-        tracks: track,
-      });
-    });
-  };
-  useEffect(() => {
-    getTrackList();
-  }, []);
   return (
     <div
       className="likedSongs"
@@ -36,11 +22,7 @@ function LikedSongs() {
             : "100vh",
       }}
     >
-      <Playlist
-        playlistObj={trackList}
-        getTracks={getTrackList}
-        isCustom={false}
-      />
+      <Playlist isCustom={false} />
     </div>
   );
 }

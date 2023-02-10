@@ -1,19 +1,68 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { trackContext } from "../../context/trackContext";
 import { AuthContext } from "../../context/authContext";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import TrackInfo from "../../components/TrackInfo/TrackInfo";
 import "./playlist.scss";
-import { updateTracks } from "../../api/api";
+import {
+  deletePlaylist,
+  updateTracks,
+  getPlaylistById,
+  getTracks,
+  getTrackObject,
+} from "../../api/api";
 import Soundbar from "../../components/Soundbar/Soundbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../Loader/Loader";
-function Playlist({ playlistObj, getTracks, isCustom, id }) {
-  const { state: tracks } = useContext(trackContext);
+import { Delete } from "@mui/icons-material";
+import PlayArrow from "@mui/icons-material/PlayArrow";
+import { useNavigate } from "react-router-dom";
+function Playlist({ isCustom, id }) {
+  const { state: tracks, dispatch } = useContext(trackContext);
   const { user } = useContext(AuthContext);
+  const [playlistObj, setPlaylistObj] = useState(null);
   let screenSize = window.screen.width;
+  const navigate = useNavigate();
+
+  const handleAddToQueue = () => {
+    let trackList = [];
+    playlistObj.tracks.forEach((item) => {
+      const audioURL = getTrackObject(item.trackObject);
+      item = { ...item, trackObject: audioURL };
+      trackList.push(item);
+    });
+
+    dispatch({
+      type: "ADD_TO_QUEUE",
+      payload: trackList,
+    });
+  };
+
+  const getLikedSongs = () => {
+    const data = getTracks({ liked_by: user._id });
+    data.then((track) => {
+      setPlaylistObj({
+        type: "Playlist",
+        name: "Liked Songs",
+        tracks: track,
+      });
+    });
+  };
+  const getPlaylist = (id) => {
+    const data = getPlaylistById(id);
+    data.then((track) => {
+      setPlaylistObj(track);
+    });
+  };
+
+  const handleDeletePlaylist = (id) => {
+    const data = deletePlaylist(id);
+    data.then(() => {
+      navigate("/list-playlist");
+    });
+  };
   const handleLikedSongs = (item) => {
     if (item.liked_by === null || !item.liked_by.includes(user._id)) {
       const data = updateTracks(
@@ -53,6 +102,14 @@ function Playlist({ playlistObj, getTracks, isCustom, id }) {
       getTracks();
     }
   };
+
+  useEffect(() => {
+    if (isCustom) {
+      getPlaylist(id);
+    } else {
+      getLikedSongs();
+    }
+  }, []);
   return (
     <div
       className="playlist"
@@ -86,6 +143,22 @@ function Playlist({ playlistObj, getTracks, isCustom, id }) {
                   <h3>{playlistObj.type.split("_").join(" ")}</h3>
                   <h1>{playlistObj.name}</h1>
                   <p>{playlistObj.tracks.length} songs</p>
+                </div>
+                <div className="button_container">
+                  <div
+                    className="button play"
+                    onClick={() => handleAddToQueue()}
+                  >
+                    <PlayArrow />
+                  </div>
+                  {isCustom && (
+                    <div
+                      className="button delete"
+                      onClick={() => handleDeletePlaylist(playlistObj._id)}
+                    >
+                      <Delete />
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="right_bottom">
