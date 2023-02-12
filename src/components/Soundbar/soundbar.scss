@@ -149,8 +149,13 @@
                 font-size: 12px;
               }
             }
-            .favourite_icon {
-              color: black;
+            .button_container {
+              .MuiSvgIcon-root {
+                color: black;
+              }
+              .queue_icon {
+                display: none;
+              }
             }
           }
         }
@@ -203,10 +208,8 @@
     .queue_component {
       display: flex;
       flex-direction: column;
-      height: 60%;
+      height: 65%;
       overflow-y: auto;
-      overflow-x: hidden;
-
       .queue_track_info_container {
         display: flex;
         align-items: center;
@@ -229,6 +232,9 @@
         background-color: #c3cfe2;
       }
     }
+    .queue_component::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 
@@ -238,7 +244,7 @@
     height: 65px;
     bottom: 80px;
     &.open {
-      height: 82vh;
+      height: 80vh;
     }
     .soundbar_container {
       display: flex;
@@ -333,12 +339,12 @@
           display: flex;
           flex-direction: column;
           align-items: center;
+          width: 100%;
 
           .soundbar_top {
             display: flex;
             flex-direction: column;
             color: gray;
-
             .top_left {
               img {
                 height: 250px;
@@ -352,7 +358,9 @@
             .top_info_container {
               display: flex;
               justify-content: space-between;
+              width: 100%;
               .top_right {
+                text-transform: capitalize;
                 h4 {
                   font-weight: 550;
                 }
@@ -360,8 +368,15 @@
                   font-size: 12px;
                 }
               }
-              .favourite_icon {
-                color: black;
+              .button_container {
+                display: flex;
+                .MuiSvgIcon-root {
+                  color: black;
+                  margin-right: 5px;
+                }
+                .queue_icon {
+                  display: flex;
+                }
               }
             }
           }
@@ -412,7 +427,6 @@
         }
       }
       .queue_component {
-        display: none;
         flex-direction: column;
         .queue_track_info_container {
           display: flex;
@@ -423,8 +437,10 @@
           border-radius: 10px;
           border-bottom: 2px solid lightgrey;
           color: gray;
+          font-size: 12px;
+          text-transform: capitalize;
           img {
-            height: 40px;
+            height: 25px;
             border-radius: 5px;
             box-shadow: 3px 3px 10px gray;
           }

@@ -1,8 +1,6 @@
 .artistPage {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 80px);
-  overflow-y: overlay;
   align-items: center;
   background: linear-gradient(
     178.1deg,
@@ -46,6 +44,7 @@
             display: flex;
             width: 100%;
             height: 100%;
+            flex-wrap: wrap;
           }
         }
         .artist_info_container {
@@ -184,6 +183,7 @@
 @media screen and (max-width: 750px) {
   .artistPage {
     display: flex;
+    flex-direction: column;
     width: 100vw;
     .artistPage_wrapper {
       width: 100%;

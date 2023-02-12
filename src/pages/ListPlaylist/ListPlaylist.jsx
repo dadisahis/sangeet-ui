@@ -26,7 +26,7 @@ function ListPlaylist() {
   };
   useEffect(() => {
     getPlaylistList();
-  }, [playlistList.length]);
+  }, [playlistList]);
   return (
     <div
       className="listPlaylist"

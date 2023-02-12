@@ -1,7 +1,6 @@
 .home {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 80px);
   width: 100vw;
   overflow-y: overlay;
   align-items: center;
@@ -37,6 +36,7 @@
     width: 100%;
   }
 }
+
 .home::-webkit-scrollbar {
   display: none;
 }
@@ -82,6 +82,7 @@
 @media screen and (max-width: 750px) {
   .home {
     display: flex;
+    flex-direction: column;
     width: 100vw;
     .home_wrapper {
       width: 100%;
@@ -103,6 +104,10 @@
           }
         }
       }
+    }
+    .home_bottom {
+      height: 80px;
+      width: 100%;
     }
   }
 }

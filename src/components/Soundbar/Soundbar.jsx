@@ -13,6 +13,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { trackContext } from "../../context/trackContext";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { AuthContext } from "../../context/authContext";
+import { QueueMusic } from "@mui/icons-material";
 
 function Soundbar() {
   // states
@@ -25,6 +26,8 @@ function Soundbar() {
   const [isLoop, setIsLoop] = useState(false);
   const [isRandom, setIsRandom] = useState(false);
   const [openArtwork, setOpenArtwork] = useState(false);
+  const [openQueue, setOpenQueue] = useState(false);
+  let windowSize = window.screen.width;
 
   //ref
   const audioRef = useRef(new Audio(tracks[trackIndex].trackObject));
@@ -221,15 +224,19 @@ function Soundbar() {
                     <h4>{tracks[trackIndex].name}</h4>
                     <p>{tracks[trackIndex].artists[0].artist_name}</p>
                   </div>
-
-                  <FavoriteIcon
-                    className={
-                      tracks[trackIndex].liked_by &&
-                      tracks[trackIndex].liked_by.includes(user._id)
-                        ? "favourite_icon"
-                        : "favourite_icon"
-                    }
-                  />
+                  <div className="button_container">
+                    <FavoriteIcon
+                      className={
+                        tracks[trackIndex].liked_by &&
+                        tracks[trackIndex].liked_by.includes(user._id)
+                          ? "favourite_icon"
+                          : "favourite_icon"
+                      }
+                    />
+                    <div onClick={() => setOpenQueue(!openQueue)}>
+                      <QueueMusic className="queue_icon" />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="soundbar_controls">
@@ -308,22 +315,45 @@ function Soundbar() {
               </div>
             </div>
             <div className="queue_component">
-              <h3>Queue</h3>
-              {tracks[0].name &&
-                tracks.map((track, index) => (
-                  <div
-                    className={
-                      index === trackIndex
-                        ? "queue_track_info_container active"
-                        : "queue_track_info_container"
-                    }
-                    onClick={() => handleClick(index)}
-                  >
-                    <img src={track.albums[0].album_image} alt="" />
-                    <p>{track.name}</p>
-                    <p>{track.artists[0].artist_name}</p>
-                  </div>
-                ))}
+              {windowSize > 750 ? (
+                <>
+                  <h3>Queue</h3>
+                  {tracks[0].name &&
+                    tracks.map((track, index) => (
+                      <div
+                        className={
+                          index === trackIndex
+                            ? "queue_track_info_container active"
+                            : "queue_track_info_container"
+                        }
+                        onClick={() => handleClick(index)}
+                      >
+                        <img src={track.albums[0].album_image} alt="" />
+                        <p>{track.name}</p>
+                        <p>{track.artists[0].artist_name}</p>
+                      </div>
+                    ))}
+                </>
+              ) : openQueue ? (
+                <>
+                  <h3>Queue</h3>
+                  {tracks[0].name &&
+                    tracks.map((track, index) => (
+                      <div
+                        className={
+                          index === trackIndex
+                            ? "queue_track_info_container active"
+                            : "queue_track_info_container"
+                        }
+                        onClick={() => handleClick(index)}
+                      >
+                        <img src={track.albums[0].album_image} alt="" />
+                        <p>{track.name}</p>
+                        <p>{track.artists[0].artist_name}</p>
+                      </div>
+                    ))}
+                </>
+              ) : null}
             </div>
           </div>
         )}
