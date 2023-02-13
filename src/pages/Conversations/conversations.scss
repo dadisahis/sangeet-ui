@@ -1,33 +1,11 @@
 .conversation {
   display: flex;
-  flex-direction: column;
-  height: calc(100vh - 80px);
-  overflow-y: overlay;
-  align-items: center;
-  background: linear-gradient(
-    178.1deg,
-    rgb(60, 55, 106) 8.5%,
-    rgb(23, 20, 69) 82.4%
-  );
-  .conversation_wrapper {
-    width: 100%;
-    max-width: 1424px;
-    .conversation_container {
-      display: flex;
-      width: 100%;
-      .conversation_container_right {
-        display: flex;
-        flex-direction: row;
-        width: 80%;
-        .playlist_container {
-          display: flex;
-        }
-      }
-    }
-  }
-  .conversation_bottom {
-    height: 80px;
-    width: 100%;
+  width: 100%;
+
+  .conversation_container_right {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
   }
 }
 .conversation::-webkit-scrollbar {

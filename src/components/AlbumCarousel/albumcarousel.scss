@@ -13,7 +13,6 @@
 
 .albumcarousel {
   margin: 10px 5px;
-  max-width: 1024px;
   width: 100%;
   border-radius: 20px;
   .albumcarousel_parent_container {
@@ -186,7 +185,7 @@
             }
 
             img {
-              height: 80%;
+              height: 70%;
               position: absolute;
               box-shadow: 7px 14px 5px 0px rgba(0, 0, 0, 0.4);
               -webkit-box-shadow: 7px 14px 5px 0px rgba(0, 0, 0, 0.4);
@@ -222,7 +221,7 @@
   }
 }
 
-@media screen and (max-width: 875px) {
+@media screen and (max-width: 900px) {
   .albumcarousel {
     display: flex;
     margin: 10px 0px;

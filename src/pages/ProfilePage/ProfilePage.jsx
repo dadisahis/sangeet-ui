@@ -21,6 +21,7 @@ import {
   getConversations,
 } from "../../api/api";
 import Loader from "../../components/Loader/Loader";
+import HOC from "../../components/HOC/HOC";
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -153,138 +154,127 @@ function ProfilePage() {
       className="profilePage"
       style={{ height: tracks[0].name ? `calc(100vh - 80px)` : "100vh" }}
     >
-      <div className="profilePage_wrapper">
-        <div className="profilePage_top">
-          <Navbar />
-        </div>
-        <div className="profile_container">
-          <Sidebar />
-          {profileData && recentlyPlayed ? (
-            <div className="profile_wrapper">
-              <div className="profile_info_container">
-                <div className="cover_pic_container">
-                  <div className="blur"></div>
+      {profileData && recentlyPlayed ? (
+        <div className="profile_wrapper">
+          <div className="profile_info_container">
+            <div className="cover_pic_container">
+              <div className="blur"></div>
+            </div>
+            <div className="info_wrapper">
+              <div className="img_container">
+                <img
+                  src={
+                    profileData && profileData.images
+                      ? profileData.images[0].url
+                      : "https://images.unsplash.com/photo-1544502062-f82887f03d1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80"
+                  }
+                  alt=""
+                  className="profileProfilePic"
+                />
+              </div>
+              <div className="info_container">
+                <p className="profile_title">Profile </p>
+                <p className="name">{profileData.name}</p>
+                <div className="follow_container">
+                  <p>{profileData.followers.length} followers </p>
+                  <p>|</p>
+                  <p>
+                    {profileData.following_users.length +
+                      profileData.following_artists.length}{" "}
+                    following{" "}
+                  </p>
                 </div>
-                <div className="info_wrapper">
-                  <div className="img_container">
-                    <img
-                      src={
-                        profileData && profileData.images
-                          ? profileData.images[0].url
-                          : "https://images.unsplash.com/photo-1544502062-f82887f03d1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80"
-                      }
-                      alt=""
-                      className="profileProfilePic"
-                    />
-                  </div>
-                  <div className="info_container">
-                    <p className="profile_title">Profile </p>
-                    <p className="name">{profileData.name}</p>
-                    <div className="follow_container">
-                      <p>{profileData.followers.length} followers </p>
-                      <p>|</p>
-                      <p>
-                        {profileData.following_users.length +
-                          profileData.following_artists.length}{" "}
-                        following{" "}
-                      </p>
+              </div>
+              {user._id !== profileData._id && (
+                <div className="follow_button_container">
+                  {user.following_users &&
+                  user.following_users.length > 0 &&
+                  user.following_users
+                    .map((item) => item.user_id === profileData._id)
+                    .includes(true) ? (
+                    <div className="follow_button ">
+                      <div
+                        className="button following"
+                        onClick={() => unFollowUser()}
+                      >
+                        <p>Following</p>
+                      </div>
                     </div>
-                  </div>
-                  {user._id !== profileData._id && (
-                    <div className="follow_button_container">
-                      {user.following_users &&
-                      user.following_users.length > 0 &&
-                      user.following_users
-                        .map((item) => item.user_id === profileData._id)
-                        .includes(true) ? (
-                        <div className="follow_button ">
-                          <div
-                            className="button following"
-                            onClick={() => unFollowUser()}
-                          >
-                            <p>Following</p>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="follow_button">
-                          <div className="button" onClick={() => followUser()}>
-                            <p>Follow</p>
-                          </div>
-                        </div>
-                      )}
-                      <div className="dm_button">
-                        <div
-                          className="button"
-                          onClick={() => {
-                            createNewConversation();
-                          }}
-                        >
-                          <ChatBubbleOutlineIcon className="chat_icon" />
-                        </div>
+                  ) : (
+                    <div className="follow_button">
+                      <div className="button" onClick={() => followUser()}>
+                        <p>Follow</p>
                       </div>
                     </div>
                   )}
+                  <div className="dm_button">
+                    <div
+                      className="button"
+                      onClick={() => {
+                        createNewConversation();
+                      }}
+                    >
+                      <ChatBubbleOutlineIcon className="chat_icon" />
+                    </div>
+                  </div>
                 </div>
+              )}
+            </div>
+          </div>
+          {recentlyPlayed && recentlyPlayed.length > 0 && id === user._id ? (
+            <TrackInfo
+              trackList={recentlyPlayed}
+              showTitles={true}
+              handleLikedSongs={() => {}}
+              title="Recently Played"
+            />
+          ) : null}
+          {playlistList.length > 0 && (
+            <>
+              <h3 className="playlist_title">Playlists</h3>
+              <div className="list_container">
+                {playlistList.map((item) => (
+                  <Link to={`/playlist/${item._id}`}>
+                    <InfoCard data={item} />
+                  </Link>
+                ))}
               </div>
-              {recentlyPlayed &&
-              recentlyPlayed.length > 0 &&
-              id === user._id ? (
-                <TrackInfo
-                  trackList={recentlyPlayed}
-                  showTitles={true}
-                  handleLikedSongs={() => {}}
-                  title="Recently Played"
-                />
-              ) : null}
-              {playlistList.length > 0 && (
-                <>
-                  <h3 className="playlist_title">Playlists</h3>
-                  <div className="list_container">
-                    {playlistList.map((item) => (
-                      <Link to={`/playlist/${item._id}`}>
-                        <InfoCard data={item} />
-                      </Link>
-                    ))}
-                  </div>
-                </>
-              )}
-              {followingArtist.length > 0 && (
-                <>
-                  <h3 className="playlist_title">Following Artists</h3>
-                  <div className="list_container">
-                    {followingArtist.map((item) => (
-                      <Link to={`/artist/${item._id}`}>
-                        <InfoCard data={item} />
-                      </Link>
-                    ))}
-                  </div>
-                </>
-              )}
-              {following.length > 0 && (
-                <>
-                  <h3 className="playlist_title">Following Profiles</h3>
-                  <div className="list_container">
-                    {following.map((item) => (
-                      <Link to={`/user/${item._id}`}>
-                        <InfoCard data={item} />
-                      </Link>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          ) : (
-            <div className="loader_container">
-              <Loader />
-            </div>
+            </>
+          )}
+          {followingArtist.length > 0 && (
+            <>
+              <h3 className="playlist_title">Following Artists</h3>
+              <div className="list_container">
+                {followingArtist.map((item) => (
+                  <Link to={`/artist/${item._id}`}>
+                    <InfoCard data={item} />
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
+          {following.length > 0 && (
+            <>
+              <h3 className="playlist_title">Following Profiles</h3>
+              <div className="list_container">
+                {following.map((item) => (
+                  <Link to={`/user/${item._id}`}>
+                    <InfoCard data={item} />
+                  </Link>
+                ))}
+              </div>
+            </>
           )}
         </div>
-      </div>
-      <div className="profile_bottom">
-        {tracks[0].name ? <Soundbar /> : null}
-      </div>
+      ) : (
+        <div className="loader_container">
+          <Loader />
+        </div>
+      )}
     </div>
   );
 }
-
-export default ProfilePage;
+const ProfilePageWrapped = () => {
+  return <HOC children={<ProfilePage />} />;
+};
+export default ProfilePageWrapped;

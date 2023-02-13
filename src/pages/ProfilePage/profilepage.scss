@@ -1,172 +1,153 @@
 .profilePage {
   display: flex;
-  flex-direction: column;
-  height: calc(100vh - 80px);
-  overflow-y: overlay;
-  align-items: center;
-  background: linear-gradient(
-    178.1deg,
-    rgb(60, 55, 106) 8.5%,
-    rgb(23, 20, 69) 82.4%
-  );
-  .profilePage_wrapper {
-    width: 100%;
-    max-width: 1424px;
-    .playlist_title {
-      color: aquamarine;
-    }
-    .list_container {
+  width: 100%;
+
+  .playlist_title {
+    color: aquamarine;
+  }
+  .list_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: white;
+  }
+
+  .loader_container {
+    display: flex;
+    width: 1024px;
+    justify-content: center;
+    align-items: center;
+  }
+  .profile_wrapper {
+    .profile_info_container {
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      color: white;
-    }
-    .profile_container {
-      display: flex;
-      width: 100%;
-      max-width: 1424px;
-      .loader_container {
+      width: 1024px;
+      .cover_pic_container {
         display: flex;
-        width: 1024px;
         justify-content: center;
         align-items: center;
-      }
-      .profile_wrapper {
-        .profile_info_container {
-          display: flex;
-          width: 1024px;
-          .cover_pic_container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            .blur {
-              height: 350px;
-              width: 100%;
-              position: relative;
-              background-color: #827397;
-              border-radius: 5px;
-            }
-            .profileCoverPic {
-              height: 350px;
-              width: 80%;
-              position: absolute;
-            }
-          }
+        width: 100%;
+        .blur {
+          height: 350px;
+          width: 100%;
           position: relative;
-          .info_wrapper {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            position: absolute;
-            width: 100%;
-            bottom: 0%;
-            background: linear-gradient(
-              to bottom,
-              rgba(0, 0, 0, 0) 16%,
-              rgba(8, 8, 8, 0.4) 44%
-            );
-            border-radius: 5px;
+          background-color: #827397;
+          border-radius: 5px;
+        }
+        .profileCoverPic {
+          height: 350px;
+          width: 80%;
+          position: absolute;
+        }
+      }
+      position: relative;
+      .info_wrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        bottom: 0%;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 16%,
+          rgba(8, 8, 8, 0.4) 44%
+        );
+        border-radius: 5px;
 
-            .img_container {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 165px;
-              width: 165px;
-              border-radius: 50%;
-              padding: 2% 1%;
-              position: relative;
-              .profileProfilePic {
-                height: 160px;
-                width: 160px;
-                border-radius: 50%;
-                position: absolute;
-                object-fit: cover;
-              }
+        .img_container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 165px;
+          width: 165px;
+          border-radius: 50%;
+          padding: 2% 1%;
+          position: relative;
+          .profileProfilePic {
+            height: 160px;
+            width: 160px;
+            border-radius: 50%;
+            position: absolute;
+            object-fit: cover;
+          }
+        }
+        .info_container {
+          .profile_title {
+            font-weight: 700;
+            color: aqua;
+          }
+          p {
+            color: white;
+            padding: 0px 5px;
+            text-transform: capitalize;
+          }
+          .name {
+            font-size: 35px;
+            font-weight: 800;
+          }
+          .follow_container {
+            display: flex;
+          }
+        }
+      }
+      .follow_button_container {
+        display: flex;
+        margin-left: 20px;
+        .follow_button {
+          margin-right: 15px;
+          .button {
+            height: 20px;
+            width: 80px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            color: white;
+            border: 1px solid white;
+            cursor: pointer;
+            p {
+              font-size: 13px;
             }
-            .info_container {
-              .profile_title {
-                font-weight: 700;
-                color: aqua;
-              }
-              p {
-                color: white;
-                padding: 0px 5px;
-                text-transform: capitalize;
-              }
-              .name {
-                font-size: 35px;
-                font-weight: 800;
-              }
-              .follow_container {
-                display: flex;
-              }
+            &.following {
+              color: greenyellow;
+              border: 1px solid greenyellow;
             }
           }
-          .follow_button_container {
+          button:hover {
+            color: aquamarine;
+            border: 1px solid aquamarine;
+            background-color: rgba(127, 255, 212, 0.199);
+          }
+        }
+        .dm_button {
+          .button {
+            height: 20px;
+            width: 25px;
+            padding: 5px;
             display: flex;
-            margin-left: 20px;
-            .follow_button {
-              margin-right: 15px;
-              .button {
-                height: 20px;
-                width: 80px;
-                padding: 5px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: none;
-                color: white;
-                border: 1px solid white;
-                cursor: pointer;
-                p {
-                  font-size: 13px;
-                }
-                &.following {
-                  color: greenyellow;
-                  border: 1px solid greenyellow;
-                }
-              }
-              button:hover {
-                color: aquamarine;
-                border: 1px solid aquamarine;
-                background-color: rgba(127, 255, 212, 0.199);
-              }
+            align-items: center;
+            justify-content: center;
+            background-color: #b25068;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            .chat_icon {
             }
-            .dm_button {
-              .button {
-                height: 20px;
-                width: 25px;
-                padding: 5px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: #b25068;
-                border-radius: 5px;
-                color: white;
-                cursor: pointer;
-                .chat_icon {
-                }
-                &.following {
-                  color: greenyellow;
-                  border: 1px solid greenyellow;
-                }
-              }
-              button:hover {
-                color: aquamarine;
-                border: 1px solid aquamarine;
-                background-color: rgba(127, 255, 212, 0.199);
-              }
+            &.following {
+              color: greenyellow;
+              border: 1px solid greenyellow;
             }
+          }
+          button:hover {
+            color: aquamarine;
+            border: 1px solid aquamarine;
+            background-color: rgba(127, 255, 212, 0.199);
           }
         }
       }
     }
-  }
-  .profile_bottom {
-    height: 80px;
-    width: 100%;
   }
 }
 .profilePage::-webkit-scrollbar {

@@ -20,6 +20,7 @@ function Soundbar() {
   const { state: tracks, dispatch } = useContext(trackContext);
   const { user } = useContext(AuthContext);
   const [trackIndex, setTrackIndex] = useState(0);
+  const [audioObj, setAudioObj] = useState(tracks[trackIndex].trackObject);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackVolume, setTrackVolume] = useState(0.5);
@@ -30,7 +31,9 @@ function Soundbar() {
   let windowSize = window.screen.width;
 
   //ref
-  const audioRef = useRef(new Audio(tracks[trackIndex].trackObject));
+  console.log(audioObj);
+
+  const audioRef = useRef(new Audio(audioObj));
   const intervalRef = useRef();
   const isReady = useRef(true);
   const { duration } = audioRef.current;
@@ -63,6 +66,9 @@ function Soundbar() {
   const trackStyling = `
     -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #FFF), color-stop(${currentPercentage}, #777))
   `;
+  useEffect(() => {
+    console.log("hello");
+  }, []);
 
   const startTimer = () => {
     clearInterval(intervalRef.current);
@@ -112,7 +118,8 @@ function Soundbar() {
 
   useEffect(() => {
     audioRef.current.pause();
-    audioRef.current = new Audio(tracks[trackIndex].trackObject);
+    setAudioObj(tracks[trackIndex].trackObject);
+    audioRef.current = new Audio(audioObj);
     clearInterval(intervalRef.current);
     setTrackProgress(audioRef.current.currentTime);
 

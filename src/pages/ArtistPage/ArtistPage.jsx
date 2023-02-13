@@ -1,8 +1,6 @@
 import React from "react";
-import Navbar from "../../components/Navbar/Navbar";
-import Soundbar from "../../components/Soundbar/Soundbar";
+import HOC from "../../components/HOC/HOC";
 import "./artistpage.scss";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import {
   getArtist,
   getArtistTracks,
@@ -12,7 +10,7 @@ import {
 import { useEffect, useContext, useState } from "react";
 import { trackContext } from "../../context/trackContext";
 import { updateTracks } from "../../api/api";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../context/authContext";
 import TrackInfo from "../../components/TrackInfo/TrackInfo";
@@ -21,7 +19,6 @@ import InfoCard from "../../components/InfoCard/InfoCard";
 
 function ArtistPage() {
   const id = window.location.pathname.split("/")[2];
-  const { state: tracks } = useContext(trackContext);
   const { user, dispatch: dispatchUser } = useContext(AuthContext);
   const [artistData, setArtistData] = useState(null);
   const [artistTracks, setArtistTracks] = useState(null);
@@ -136,198 +133,88 @@ function ArtistPage() {
 
   return (
     <div className="artistPage">
-      {screenSize > 750 ? (
-        <>
-          <div className="artistPage_wrapper">
-            <div className="artistPage_top">
-              <Navbar />
-            </div>
-
-            <div className="artist_container">
-              <Sidebar />
-              {artistData && artistTracks ? (
-                <div className="artist_wrapper">
-                  <div className="artist_info_container">
-                    <div className="cover_pic_container">
-                      <div className="blur"></div>
-                      <img
-                        src={artistData.images[1].url}
-                        alt=""
-                        className="artistCoverPic"
-                      />
-                    </div>
-                    <div className="info_wrapper">
-                      <div className="img_container">
-                        <img
-                          src={artistData.images[0].url}
-                          alt=""
-                          className="artistProfilePic"
-                        />
-                      </div>
-                      <div className="info_container">
-                        <p className="name">{artistData.name}</p>
-                        <div className="genres_container">
-                          <p className="genres_title">Genres: </p>
-                          {artistData.genres.length > 0
-                            ? artistData.genres.map((item, index) => (
-                                <p key={index}>{item}</p>
-                              ))
-                            : null}
-                        </div>
-                      </div>
-                      {user ? (
-                        <div className="follow_button_container">
-                          {user.following_artists.length > 0 &&
-                          user.following_artists
-                            .map((item) => item.user_id === artistData._id)
-                            .includes(true) ? (
-                            <div className="follow_button ">
-                              <div
-                                className="button following"
-                                onClick={() => unFollowArtist()}
-                              >
-                                <p>Following</p>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="follow_button">
-                              <div
-                                className="button"
-                                onClick={() => followArtist()}
-                              >
-                                <p>Follow</p>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-
-                  <TrackInfo
-                    trackList={artistTracks}
-                    showTitles={true}
-                    handleLikedSongs={handleLikedSongs}
+      <div className="artist_container">
+        {artistData && artistTracks ? (
+          <div className="artist_wrapper">
+            <div className="artist_info_container">
+              <div className="cover_pic_container">
+                <div className="blur"></div>
+                <img
+                  src={artistData.images[1].url}
+                  alt=""
+                  className="artistCoverPic"
+                />
+              </div>
+              <div className="info_wrapper">
+                <div className="img_container">
+                  <img
+                    src={artistData.images[0].url}
+                    alt=""
+                    className="artistProfilePic"
                   />
-                  <div className="infolist_container">
-                    <h2>Albums</h2>
-                    <div className="info_card_container">
-                      {albumList
-                        ? albumList.map((album) => <InfoCard data={album} />)
-                        : null}
-                    </div>
+                </div>
+                <div className="info_container">
+                  <p className="name">{artistData.name}</p>
+                  <div className="genres_container">
+                    <p className="genres_title">Genres: </p>
+                    {artistData.genres.length > 0
+                      ? artistData.genres.map((item, index) => (
+                          <p key={index}>{item}</p>
+                        ))
+                      : null}
                   </div>
                 </div>
-              ) : (
-                <div className="loader_container">
-                  <Loader />
-                </div>
-              )}
-            </div>
-          </div>
-          <div
-            className="artist_bottom"
-            style={{ display: `${tracks[0].name !== null}` }}
-          >
-            {tracks[0].name ? <Soundbar /> : null}
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="artistPage_wrapper">
-            <div className="artistPage_top">
-              <Navbar />
-            </div>
-
-            <div className="artist_container">
-              {artistData && artistTracks ? (
-                <div className="artist_wrapper">
-                  <div className="artist_info_container">
-                    <div className="cover_pic_container">
-                      <div className="blur"></div>
-                      <img
-                        src={artistData.images[1].url}
-                        alt=""
-                        className="artistCoverPic"
-                      />
-                    </div>
-                    <div className="info_wrapper">
-                      <div className="img_container">
-                        <img
-                          src={artistData.images[0].url}
-                          alt=""
-                          className="artistProfilePic"
-                        />
-                      </div>
-                      <div className="info_container">
-                        <p className="name">{artistData.name}</p>
-                        <div className="genres_container">
-                          <p className="genres_title">Genres: </p>
-                          {artistData.genres.length > 0
-                            ? artistData.genres.map((item, index) => (
-                                <p key={index}>{item}</p>
-                              ))
-                            : null}
+                {user ? (
+                  <div className="follow_button_container">
+                    {user.following_artists.length > 0 &&
+                    user.following_artists
+                      .map((item) => item.user_id === artistData._id)
+                      .includes(true) ? (
+                      <div className="follow_button ">
+                        <div
+                          className="button following"
+                          onClick={() => unFollowArtist()}
+                        >
+                          <p>Following</p>
                         </div>
                       </div>
-                      {user ? (
-                        <div className="follow_button_container">
-                          {user.following_artists.length > 0 &&
-                          user.following_artists
-                            .map((item) => item.user_id === artistData._id)
-                            .includes(true) ? (
-                            <div className="follow_button ">
-                              <div
-                                className="button following"
-                                onClick={() => unFollowArtist()}
-                              >
-                                <p>Following</p>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="follow_button">
-                              <div
-                                className="button"
-                                onClick={() => followArtist()}
-                              >
-                                <p>Follow</p>
-                              </div>
-                            </div>
-                          )}
+                    ) : (
+                      <div className="follow_button">
+                        <div className="button" onClick={() => followArtist()}>
+                          <p>Follow</p>
                         </div>
-                      ) : null}
-                    </div>
+                      </div>
+                    )}
                   </div>
+                ) : null}
+              </div>
+            </div>
 
-                  <TrackInfo
-                    trackList={artistTracks}
-                    showTitles={true}
-                    handleLikedSongs={handleLikedSongs}
-                  />
-                  <div className="infolist_container">
-                    <h2>Albums</h2>
-                    <div className="info_card_container">
-                      {albumList
-                        ? albumList.map((album) => <InfoCard data={album} />)
-                        : null}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="loader_container">
-                  <Loader />
-                </div>
-              )}
+            <TrackInfo
+              trackList={artistTracks}
+              showTitles={true}
+              handleLikedSongs={handleLikedSongs}
+            />
+            <div className="infolist_container">
+              <h2>Albums</h2>
+              <div className="info_card_container">
+                {albumList
+                  ? albumList.map((album) => <InfoCard data={album} />)
+                  : null}
+              </div>
             </div>
           </div>
-          <div className="artist_bottom">
-            {tracks[0].name ? <Soundbar /> : null}
-            <Sidebar />
+        ) : (
+          <div className="loader_container">
+            <Loader />
           </div>
-        </>
-      )}
+        )}
+      </div>
     </div>
   );
 }
 
-export default ArtistPage;
+const ArtistPageWrapped = () => {
+  return <HOC children={<ArtistPage />} />;
+};
+export default ArtistPageWrapped;
