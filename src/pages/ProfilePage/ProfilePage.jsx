@@ -1,11 +1,8 @@
 import React from "react";
-import Navbar from "../../components/Navbar/Navbar";
-import Soundbar from "../../components/Soundbar/Soundbar";
 import "./profilepage.scss";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import { useEffect, useContext, useState } from "react";
 import { trackContext } from "../../context/trackContext";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../context/authContext";
 import TrackInfo from "../../components/TrackInfo/TrackInfo";

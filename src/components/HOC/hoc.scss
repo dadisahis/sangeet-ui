@@ -17,6 +17,7 @@
       display: flex;
       width: 100%;
       max-width: 1424px;
+      margin-bottom: 80px;
     }
   }
   .bottom_container {
@@ -24,20 +25,19 @@
     width: 100%;
   }
 }
+.container::-webkit-scrollbar {
+  display: none;
+}
 
-// @media screen and (max-width: 750px) {
-//   .container {
-//     display: flex;
-//     flex-direction: column;
-//     width: 100vw;
-//     .top_wrapper {
-//       width: 100%;
-//       .middle_container {
-//         display: flex;
-//         justify-content: center;
-//         width: 100%;
-//         min-width: 600px;
-//       }
-//     }
-//   }
-// }
+@media screen and (max-width: 750px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    .top_wrapper {
+      width: 100%;
+      .middle_container {
+        margin-bottom: 145px;
+      }
+    }
+  }
+}
