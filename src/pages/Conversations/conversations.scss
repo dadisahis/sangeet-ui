@@ -4,8 +4,10 @@
 
   .conversation_container_right {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: row;
-    width: 90%;
+    width: 100%;
   }
 }
 .conversation::-webkit-scrollbar {

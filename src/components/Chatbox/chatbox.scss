@@ -11,8 +11,7 @@
   }
 }
 .chatbox {
-  width: 80%;
-  border-right: 1px solid #393e46;
+  width: 100%;
   .chatbox_top {
     border-bottom: 1px solid #393e46;
     .chatbox_userinfo {
@@ -64,7 +63,8 @@
   .chatbox_bottom {
     display: flex;
     .messageBox {
-      height: 55px;
+      height: 58px;
+      padding: 0px 10px;
       width: 80%;
       background-color: #393e46;
       border: none;

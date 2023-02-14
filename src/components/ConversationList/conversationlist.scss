@@ -61,5 +61,28 @@
   }
   .chat_list_right {
     flex: 2;
+    .cross_button {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .chat_list {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    .chat_list_right {
+      flex: 2;
+      position: relative;
+      .cross_button {
+        display: flex;
+        position: absolute;
+        right: 0;
+        padding: 10px;
+        color: #a5c9ca;
+      }
+    }
   }
 }
