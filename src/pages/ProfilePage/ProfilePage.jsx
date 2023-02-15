@@ -24,7 +24,7 @@ function ProfilePage() {
   const navigate = useNavigate();
   const id = window.location.pathname.split("/")[2];
   //context
-  const { state: tracks, dispatch } = useContext(trackContext);
+  const { state: tracks } = useContext(trackContext);
   const { user, dispatch: dispatchUser } = useContext(AuthContext);
   //state
   const [profileData, setProfileData] = useState(null);
@@ -49,9 +49,6 @@ function ProfilePage() {
     let tracks = JSON.parse(localStorage.getItem("recentlyPlayed"));
     const updatedTracks = [];
     if (tracks) {
-      tracks = tracks.map((item) => {
-        return item[0];
-      });
       let updatedTracks = [
         ...new Map(tracks.map((item) => [item.name, item])).values(),
       ];
@@ -147,10 +144,7 @@ function ProfilePage() {
   }, [id]);
 
   return (
-    <div
-      className="profilePage"
-      style={{ height: tracks[0].name ? `calc(100vh - 80px)` : "100vh" }}
-    >
+    <div className="profilePage">
       {profileData && recentlyPlayed ? (
         <div className="profile_wrapper">
           <div className="profile_info_container">

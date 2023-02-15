@@ -1,12 +1,9 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import Soundbar from "../../components/Soundbar/Soundbar";
-import { trackContext } from "../../context/trackContext";
 import "./hoc.scss";
 
 const HOC = ({ children }) => {
-  const { state: tracks } = useContext(trackContext);
   return (
     <div className="container">
       <div className="top_wrapper">
@@ -17,9 +14,6 @@ const HOC = ({ children }) => {
           <Sidebar />
           {children}
         </div>
-      </div>
-      <div className="bottom_container">
-        {tracks && tracks[0].name ? <Soundbar /> : null}
       </div>
     </div>
   );

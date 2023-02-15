@@ -20,7 +20,6 @@ function Soundbar() {
   const { state: tracks, dispatch } = useContext(trackContext);
   const { user } = useContext(AuthContext);
   const [trackIndex, setTrackIndex] = useState(0);
-  const [audioObj, setAudioObj] = useState(tracks[trackIndex].trackObject);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackVolume, setTrackVolume] = useState(0.5);
@@ -29,11 +28,10 @@ function Soundbar() {
   const [openArtwork, setOpenArtwork] = useState(false);
   const [openQueue, setOpenQueue] = useState(false);
   let windowSize = window.screen.width;
+  console.log(tracks);
 
   //ref
-  console.log(audioObj);
-
-  const audioRef = useRef(new Audio(audioObj));
+  const audioRef = useRef(new Audio(tracks[trackIndex].trackObject));
   const intervalRef = useRef();
   const isReady = useRef(true);
   const { duration } = audioRef.current;
@@ -118,8 +116,7 @@ function Soundbar() {
 
   useEffect(() => {
     audioRef.current.pause();
-    setAudioObj(tracks[trackIndex].trackObject);
-    audioRef.current = new Audio(audioObj);
+    audioRef.current = new Audio(tracks[trackIndex].trackObject);
     clearInterval(intervalRef.current);
     setTrackProgress(audioRef.current.currentTime);
 
