@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./conversationlist.scss";
 import Chatbox from "../Chatbox/Chatbox";
 import ConversationItem from "../ConversationItem/ConversationItem";

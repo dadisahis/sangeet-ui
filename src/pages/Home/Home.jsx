@@ -3,19 +3,13 @@ import "./home.scss";
 import InfoList from "../../components/InfoList/InfoList";
 import AlbumCarousel from "../../components/AlbumCarousel/AlbumCarousel";
 import PlaylistTiles from "../../components/PlaylistTiles/PlaylistTiles";
-import { trackContext } from "../../context/trackContext";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import Loader from "../../components/Loader/Loader";
 import HOC from "../../components/HOC/HOC";
 const Home = () => {
   const { user } = useContext(AuthContext);
-  const { state: tracks } = useContext(trackContext);
   const [loader, setLoader] = useState(false);
-  const [audio, setAudio] = useState(null);
-  let screenSize = window.screen.width;
-  console.log(tracks[0].name && screenSize < 750);
-  console.log(tracks[0].name || screenSize);
   function setLoaderState(state) {
     setLoader(state);
   }

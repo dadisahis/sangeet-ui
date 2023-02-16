@@ -25,12 +25,9 @@ const TrackReducer = (state, action) => {
         trackList.splice(0, 2);
       }
       let obj = action.payload[0];
-      console.log(obj.trackObject);
       // obj.trackObject =
       //   obj.trackObject.split("/")[obj.trackObject.split("/").length - 1];
       trackList.push(obj);
-      console.log(trackList);
-
       localStorage.setItem("recentlyPlayed", JSON.stringify(trackList));
       return action.payload;
     case "ADD_TO_QUEUE":

@@ -22,9 +22,7 @@ function Playlist(props) {
   const { dispatch } = useContext(trackContext);
   const { user } = useContext(AuthContext);
   const [playlistObj, setPlaylistObj] = useState(null);
-  let screenSize = window.screen.width;
   const navigate = useNavigate();
-  console.log(props);
   const handleAddToQueue = () => {
     let trackList = [];
     playlistObj.tracks.forEach((item) => {
