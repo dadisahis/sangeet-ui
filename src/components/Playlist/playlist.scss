@@ -20,7 +20,7 @@
       padding: 0px 30px;
       margin-bottom: 10px;
       align-items: center;
-      color: white;
+      color: rgb(238, 207, 207);
       border-radius: 20px;
       background: radial-gradient(
         circle at 10% 20%,
@@ -50,6 +50,7 @@
           margin: 5px;
           width: 50px;
           height: 50px;
+          color: white;
           border-radius: 50%;
           background-color: rgb(104, 157, 25);
           cursor: pointer;
@@ -94,7 +95,6 @@
         padding: 0px 30px;
         margin-bottom: 10px;
         align-items: center;
-        color: white;
         border-radius: 20px;
         background: radial-gradient(
           circle at 10% 20%,
@@ -134,16 +134,18 @@
     .playlist_right_container {
       display: flex;
       width: 100%;
-
       align-items: center;
+
       .right_top {
         display: flex;
+        flex-direction: column;
         width: 90%;
-        height: 300px;
+        justify-content: center;
+        height: 350px;
         padding: 0px 30px;
         margin-bottom: 10px;
         align-items: center;
-        color: white;
+
         border-radius: 5px;
         background: radial-gradient(
           circle at 10% 20%,
@@ -155,8 +157,33 @@
           width: 120px;
           border-radius: 20px;
         }
-        .playlist_title_container {
+        .button_container {
           margin-left: 5%;
+          padding-top: 5px;
+          display: flex;
+          align-items: center;
+          .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgb(104, 157, 25);
+            cursor: pointer;
+            .MuiSvgIcon-root {
+              font-size: 30px;
+            }
+
+            &.delete {
+              background-color: red;
+            }
+          }
+        }
+        .playlist_title_container {
+          margin: 10px 0px 0px 0px;
+
           h3 {
             text-transform: capitalize;
           }
