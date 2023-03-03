@@ -21,7 +21,11 @@ function Playlist(props) {
   const { isCustom, id } = props.props;
   const { dispatch } = useContext(trackContext);
   const { user } = useContext(AuthContext);
-  const [playlistObj, setPlaylistObj] = useState(null);
+  const [playlistObj, setPlaylistObj] = useState({
+    type: "",
+    name: "",
+    tracks: [],
+  });
   const navigate = useNavigate();
   const handleAddToQueue = () => {
     let trackList = [];
@@ -94,9 +98,9 @@ function Playlist(props) {
       });
     }
     if (isCustom) {
-      getTracks(id);
+      getPlaylist(id);
     } else {
-      getTracks();
+      getLikedSongs();
     }
   };
 
@@ -106,10 +110,10 @@ function Playlist(props) {
     } else {
       getLikedSongs();
     }
-  }, []);
+  }, [playlistObj.tracks]);
   return (
     <div className="playlist">
-      {playlistObj ? (
+      {playlistObj.name !=="" ? (
         <div className="playlist_right_container">
           <div className="right_top">
             {playlistObj.images && playlistObj.images.length > 0 ? (

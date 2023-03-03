@@ -14,6 +14,9 @@ import { trackContext } from "../../context/trackContext";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { AuthContext } from "../../context/authContext";
 import { QueueMusic } from "@mui/icons-material";
+import { updateTracks } from "../../api/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Soundbar() {
   // states
@@ -56,6 +59,40 @@ function Soundbar() {
     }
     // dispatch({ type: "CHANGE_TRACK", payload: [tracks[trackIndex]] });
   };
+  const handleLikedSongs = (item) => {
+    if (item.liked_by === null || !item.liked_by.includes(user._id)) {
+      const data = updateTracks(
+        {
+          ...item,
+          liked_by: [...item.liked_by, user._id],
+        },
+        item._id
+      );
+      data.then((i) => {
+        toast("Added to liked songs!", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          className: "toast_notification",
+        });
+      });
+    } else {
+      const updated_liked_by = item.liked_by.filter((i) => {
+        return i !== user._id;
+      });
+      const data = updateTracks(
+        {
+          ...item,
+          liked_by: updated_liked_by,
+        },
+        item._id
+      );
+      data.then((i) => {
+        toast("Removed from liked songs!", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          className: "toast_notification",
+        });
+      });
+    }
+  }
   const currentPercentage = duration
     ? `${(trackProgress / duration) * 100}%`
     : "0%";
@@ -176,7 +213,9 @@ function Soundbar() {
                 <h4>{tracks[trackIndex].name}</h4>
                 <p>{tracks[trackIndex].artists[0].artist_name}</p>
               </div>
-              <FavoriteIcon className="favourite_icon" />
+              <div className={tracks[trackIndex].liked_by.includes(user._id) ?  "liked_component true": "liked_component"} onClick={()=> handleLikedSongs(tracks[trackIndex])}>
+                <FavoriteIcon />
+              </div>
             </div>
             <div className="soundbar_right">
               <div className="right_icon hide">

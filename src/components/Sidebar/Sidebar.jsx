@@ -108,9 +108,9 @@ function Sidebar() {
                 <HomeIcon />
               </div>
             </Link>
-            <div className="sidebar_item">
+            {/* <div className="sidebar_item">
               <SearchIcon />
-            </div>
+            </div> */}
             <Link to={user ? "/list-playlist" : "/login"}>
               <div className="sidebar_item">
                 <LibraryMusicIcon />

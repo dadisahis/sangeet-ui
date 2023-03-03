@@ -75,6 +75,15 @@
       display: flex;
       align-items: center;
       color: gray;
+      .liked_component {
+        z-index: 999;
+        color: black;
+        margin-left: 25px;
+        cursor: pointer;
+        &.true {
+          color: green;
+        }
+      }
       .middle_left {
         margin-right: 10px;
         img {
@@ -92,10 +101,6 @@
         p {
           font-size: 12px;
         }
-      }
-      .favourite_icon {
-        color: black;
-        margin-left: 25px;
       }
     }
     .soundbar_right {

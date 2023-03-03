@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ContextMenu from "../ContextMenu/ContextMenu";
@@ -19,6 +19,20 @@ function TrackInfo({
 }) {
   const { state: tracks, dispatch } = useContext(trackContext);
   const { user } = useContext(AuthContext);
+  const [isLiked,setIsLiked] = useState(new Array(trackList.length).fill(false) )
+  useEffect(()=>{
+    let newArr = []
+    trackList.forEach(item=>{
+      if (item.liked_by && item.liked_by.includes(user._id)){
+        newArr.push(true)  
+      }
+      else{
+        newArr.push(false)
+      }
+      
+    })
+    setIsLiked(newArr)
+  },[])
 
   const [openOptions, setOpenOptions] = useState(
     new Array(trackList.length).fill(false)
@@ -45,7 +59,6 @@ function TrackInfo({
     tracks.splice(1, 0, item);
     dispatch({ type: "PLAY_NEXT", payload: tracks });
   };
-
   return (
     <div className="trackInfo_container">
       {showTitles ? (
@@ -125,12 +138,13 @@ function TrackInfo({
                 <td className="table_data">
                   <div
                     className={
-                      item.liked_by && user && item.liked_by.includes(user._id)
+                       isLiked[index]
                         ? "liked_component true"
                         : "liked_component"
                     }
                     onClick={() => {
                       handleLikedSongs(item);
+                      setIsLiked(isLiked.map((it,ind) => index ===ind ? !it : it))
                     }}
                   >
                     <FavoriteIcon />
